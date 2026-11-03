@@ -1,0 +1,127 @@
+
+<div class="page-container">
+  <section class="wishlist-page">
+    <header class="wishlist-page__header">
+      <div>
+        <p class="wishlist-page__eyebrow">MYSHOPYCART</p>
+        <h1 class="wishlist-page__title">My Wishlist</h1>
+        <p class="wishlist-page__description">
+          Your favourite products, all in one place.
+        </p>
+      </div>
+
+      <span class="wishlist-page__count">
+        {{ wishlistCount() }} {{ wishlistCount() === 1 ? 'Item' : 'Items' }}
+      </span>
+    </header>
+
+    @if (message()) {
+      <div class="wishlist-page__message" role="status" aria-live="polite">
+        {{ message() }}
+      </div>
+    }
+
+    @if (hasItems()) {
+      <div class="wishlist-grid">
+        @for (item of wishlistItems(); track item.id) {
+          <article class="wishlist-card">
+            <a
+              class="wishlist-card__image-wrapper"
+              [routerLink]="['/products', item.id]"
+            >
+              @if (item.image) {
+                <img
+                  class="wishlist-card__image"
+                  [src]="item.image"
+                  [alt]="item.name"
+                />
+              } @else {
+                <div class="wishlist-card__image-placeholder">
+                  {{ item.categoryName }}
+                </div>
+              }
+            </a>
+
+            <div class="wishlist-card__content">
+              <span class="wishlist-card__category">
+                {{ item.categoryName }}
+              </span>
+
+              <h2 class="wishlist-card__name">
+                <a [routerLink]="['/products', item.id]">
+                  {{ item.name }}
+                </a>
+              </h2>
+
+              <p class="wishlist-card__description">
+                {{ item.description }}
+              </p>
+
+              <div class="wishlist-card__price">
+                {{ formatPrice(item.price) }}
+              </div>
+
+              <p
+                class="wishlist-card__stock"
+                [class.wishlist-card__stock--unavailable]="item.stock < 1"
+              >
+                {{ item.stock > 0 ? 'In Stock' : 'Out of Stock' }}
+              </p>
+
+              <div class="wishlist-card__actions">
+                <button
+                  type="button"
+                  class="wishlist-card__cart-button"
+                  [disabled]="item.stock < 1"
+                  (click)="addToCart(item.id)"
+                >
+                  Add to Cart
+                </button>
+
+                <button
+                  type="button"
+                  class="wishlist-card__remove-button"
+                  [attr.aria-label]="'Remove ' + item.name + ' from wishlist'"
+                  (click)="removeItem(item.id)"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    } @else {
+      <div class="wishlist-empty-state">
+        <div class="wishlist-empty-state__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path
+              d="M20.8 8.8c0 5.1-8.8 11-8.8 11s-8.8-5.9-8.8-11A4.8 4.8 0 0 1 12 6.2a4.8 4.8 0 0 1 8.8 2.6Z"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+
+        <h2>Your Wishlist Is Empty</h2>
+
+        <p>
+          You haven't added any favourite products yet.
+          Explore our products and save the ones you love.
+        </p>
+
+        <a routerLink="/products" class="wishlist-empty-state__button">
+          Browse Products
+        </a>
+      </div>
+    }
+
+    <div class="wishlist-page__footer">
+      <a routerLink="/products" class="wishlist-page__continue-link">
+        Continue Shopping
+      </a>
+    </div>
+  </section>
+</div>

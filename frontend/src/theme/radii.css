@@ -1,0 +1,12 @@
+:root {
+  /* =========================================================
+     MYSHOPYCART BORDER RADIUS SYSTEM
+     ========================================================= */
+
+  --radius-sm: 0.375rem;   /* 6px */
+  --radius-md: 0.625rem;   /* 10px */
+  --radius-lg: 1rem;       /* 16px */
+  --radius-xl: 1.5rem;     /* 24px */
+
+  --radius-pill: 9999px;
+}

@@ -1,0 +1,20 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/myshopycart_auth
+    username: postgres
+    password: postgres
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+myshopycart:
+  auth:
+    message: "Auth Service configuration loaded from Config Server"
+    service-name: "auth-service"
+    jwt-secret: "myshopycart-phase4-jwt-secret-key-change-this-later"
+    jwt-expiration: 3600000

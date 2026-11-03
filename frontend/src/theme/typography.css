@@ -1,0 +1,80 @@
+:root {
+  /* =========================================================
+     MYSHOPYCART TYPOGRAPHY SYSTEM
+     ========================================================= */
+
+  --font-family-primary:
+    "Poppins",
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  --font-family-body:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  /* =========================================================
+     FONT WEIGHTS
+     ========================================================= */
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* =========================================================
+     DISPLAY / HERO
+     ========================================================= */
+
+  --font-size-display: clamp(2.5rem, 5vw, 4rem);
+  --line-height-display: 1.1;
+  --letter-spacing-display: -0.03em;
+
+  /* =========================================================
+     PAGE HEADINGS
+     ========================================================= */
+
+  --font-size-h1: clamp(2rem, 4vw, 3rem);
+  --font-size-h2: clamp(1.75rem, 3vw, 2.25rem);
+  --font-size-h3: clamp(1.375rem, 2vw, 1.75rem);
+  --font-size-h4: 1.25rem;
+
+  --line-height-heading: 1.2;
+  --letter-spacing-heading: -0.02em;
+
+  /* =========================================================
+     BODY TEXT
+     ========================================================= */
+
+  --font-size-body-lg: 1.125rem;
+  --font-size-body: 1rem;
+  --font-size-body-sm: 0.875rem;
+  --font-size-caption: 0.75rem;
+
+  --line-height-body: 1.5;
+  --line-height-body-relaxed: 1.6;
+
+  /* =========================================================
+     UI / FORM TEXT
+     ========================================================= */
+
+  --font-size-button: 0.9375rem;
+  --font-size-input: 1rem;
+  --font-size-label: 0.875rem;
+  --font-size-helper: 0.8125rem;
+
+  /* =========================================================
+     SPECIAL TEXT
+     ========================================================= */
+
+  --font-size-eyebrow: 0.875rem;
+  --font-size-price: 1.5rem;
+  --font-size-price-lg: 2rem;
+}

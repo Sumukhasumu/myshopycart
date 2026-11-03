@@ -1,0 +1,180 @@
+
+<section class="payment-result-page">
+  <div class="payment-result-card">
+
+    @if (hasValidResult() && isSuccess()) {
+      <div class="payment-result-icon payment-result-icon--success">
+        ✓
+      </div>
+
+      <p class="payment-result-eyebrow">MYSHOPYCART</p>
+      <h1>Payment Successful</h1>
+
+      <p class="payment-result-message">
+        Your simulated payment has been completed successfully.
+        Thank you for shopping with MYSHOPYCART.
+      </p>
+
+      <div class="payment-result-details">
+        <div class="payment-result-detail">
+          <span>Order Number</span>
+          <strong>{{ orderId }}</strong>
+        </div>
+
+        <div class="payment-result-detail">
+          <span>Payment Status</span>
+          <strong class="payment-status-success">Successful</strong>
+        </div>
+
+        <div class="payment-result-detail">
+          <span>Payment Method</span>
+          <strong>{{ paymentMethodLabel() }}</strong>
+        </div>
+      </div>
+
+      @if (cartCleanupFailed) {
+        <div class="payment-result-warning" role="alert">
+          <strong>Cart cleanup needs attention</strong>
+          <p>
+            Your payment succeeded, but the cart could not be cleared.
+            Please open your cart and remove items that you have already
+            purchased.
+          </p>
+        </div>
+      }
+
+      <p class="payment-result-note">
+        This is a simulated transaction. No real payment was processed.
+      </p>
+
+      <div class="payment-result-actions">
+        <button
+          type="button"
+          class="payment-result-primary"
+          (click)="viewOrder()"
+        >
+          View Order
+        </button>
+
+        <button
+          type="button"
+          class="payment-result-secondary"
+          (click)="goToOrders()"
+        >
+          My Orders
+        </button>
+
+        <button
+          type="button"
+          class="payment-result-secondary"
+          (click)="continueShopping()"
+        >
+          Continue Shopping
+        </button>
+      </div>
+    }
+
+    @else if (hasValidResult() && isFailure()) {
+      <div class="payment-result-icon payment-result-icon--failure">
+        ×
+      </div>
+
+      <p class="payment-result-eyebrow">MYSHOPYCART</p>
+      <h1>Payment Failed</h1>
+
+      <p class="payment-result-message">
+        Your simulated payment failed and the order has been cancelled.
+        Your cart items have been preserved so you can review them and
+        start a new order.
+      </p>
+
+      <div class="payment-result-details">
+        <div class="payment-result-detail">
+          <span>Order Number</span>
+          <strong>{{ orderId }}</strong>
+        </div>
+
+        <div class="payment-result-detail">
+          <span>Payment Status</span>
+          <strong class="payment-status-failure">Failed</strong>
+        </div>
+
+        <div class="payment-result-detail">
+          <span>Payment Method</span>
+          <strong>{{ paymentMethodLabel() }}</strong>
+        </div>
+      </div>
+
+      <p class="payment-result-note">
+        No real money was charged. This was only a payment simulation.
+      </p>
+
+      <div class="payment-result-actions">
+        <button
+          type="button"
+          class="payment-result-primary"
+          (click)="viewOrder()"
+        >
+          View Order
+        </button>
+
+        <button
+          type="button"
+          class="payment-result-secondary"
+          (click)="reviewCart()"
+        >
+          Review Cart
+        </button>
+
+        <button
+          type="button"
+          class="payment-result-secondary"
+          (click)="goToOrders()"
+        >
+          My Orders
+        </button>
+
+        <button
+          type="button"
+          class="payment-result-secondary"
+          (click)="continueShopping()"
+        >
+          Continue Shopping
+        </button>
+      </div>
+    }
+
+    @else {
+      <div class="payment-result-icon payment-result-icon--failure">
+        !
+      </div>
+
+      <p class="payment-result-eyebrow">MYSHOPYCART</p>
+      <h1>Payment Result Unavailable</h1>
+
+      <p class="payment-result-message">
+        We could not find a valid payment result.
+        Please return to your cart and check your order.
+      </p>
+
+      <div class="payment-result-actions">
+        <button
+          type="button"
+          class="payment-result-primary"
+          (click)="reviewCart()"
+        >
+          Review Cart
+        </button>
+
+        <button
+          type="button"
+          class="payment-result-secondary"
+          (click)="goToHome()"
+        >
+          Back to Home
+        </button>
+      </div>
+    }
+
+  </div>
+</section>

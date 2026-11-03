@@ -1,0 +1,179 @@
+
+<section class="auth-page">
+  <div class="auth-card">
+
+    <h1>Sign in</h1>
+
+    @if (registrationSuccess()) {
+      <div class="auth-success" role="status">
+        {{ registrationSuccess() }}
+        @if (registeredUsername()) {
+          Registered username: <strong>{{ registeredUsername() }}</strong>
+        }
+      </div>
+    }
+
+    @if (errorMessage()) {
+      <div class="auth-error" role="alert">
+        {{ errorMessage() }}
+      </div>
+    }
+
+    <form (ngSubmit)="login()" novalidate>
+      <div class="auth-form-group">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          class="ui-input"
+          type="text"
+          name="username"
+          [(ngModel)]="username"
+          placeholder="Enter your username"
+          autocomplete="username"
+          required
+        />
+      </div>
+
+      <div class="auth-form-group">
+        <label for="password">Password</label>
+
+        <div class="login-password-field">
+          <input
+            id="password"
+            class="ui-input"
+            [type]="showPassword() ? 'text' : 'password'"
+            name="password"
+            [(ngModel)]="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          />
+
+          <button
+            type="button"
+            class="login-password-toggle"
+            (click)="togglePasswordVisibility()"
+          >
+            {{ showPassword() ? 'Hide' : 'Show' }}
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="isSubmitting()">
+        {{ isSubmitting() ? 'Signing in...' : 'Sign in' }}
+      </button>
+    </form>
+
+    <p>
+      Don't have an account?
+      <a routerLink="/register">Create one</a>
+    </p>
+
+    <div class="demo-credentials">
+      <h2>Demo credentials</h2>
+      <p>Use any one of these sample accounts:</p>
+
+      <div class="demo-account">
+        <strong>Customer</strong>
+
+        <div class="demo-credential-row">
+          <span>Username: demo.customer</span>
+          <button
+            type="button"
+            class="demo-copy-button"
+            (click)="copyDemoCredential('demo.customer')"
+            aria-label="Copy customer username"
+          >
+            {{ copiedCredential() === 'demo.customer' ? 'Copied' : 'Copy' }}
+          </button>
+        </div>
+
+        <div class="demo-credential-row">
+          <span>Password: Demo@123</span>
+          <button
+            type="button"
+            class="demo-copy-button"
+            (click)="copyDemoCredential('Demo@123')"
+            aria-label="Copy customer password"
+          >
+            {{ copiedCredential() === 'Demo@123' ? 'Copied' : 'Copy' }}
+          </button>
+        </div>
+      </div>
+
+      <div class="demo-account">
+        <strong>Admin</strong>
+
+        <div class="demo-credential-row">
+          <span>Username: demo.admin</span>
+          <button
+            type="button"
+            class="demo-copy-button"
+            (click)="copyDemoCredential('demo.admin')"
+            aria-label="Copy admin username"
+          >
+            {{ copiedCredential() === 'demo.admin' ? 'Copied' : 'Copy' }}
+          </button>
+        </div>
+
+        <div class="demo-credential-row">
+          <span>Password: Admin@123</span>
+          <button
+            type="button"
+            class="demo-copy-button"
+            (click)="copyDemoCredential('Admin@123')"
+            aria-label="Copy admin password"
+          >
+            {{ copiedCredential() === 'Admin@123' ? 'Copied' : 'Copy' }}
+          </button>
+        </div>
+      </div>
+
+      <div class="demo-account">
+        <strong>Distributor</strong>
+
+        <div class="demo-credential-row">
+          <span>Username: demo.distributor</span>
+          <button
+            type="button"
+            class="demo-copy-button"
+            (click)="copyDemoCredential('demo.distributor')"
+            aria-label="Copy distributor username"
+          >
+            {{ copiedCredential() === 'demo.distributor' ? 'Copied' : 'Copy' }}
+          </button>
+        </div>
+
+        <div class="demo-credential-row">
+          <span>Password: Dist@123</span>
+          <button
+            type="button"
+            class="demo-copy-button"
+            (click)="copyDemoCredential('Dist@123')"
+            aria-label="Copy distributor password"
+          >
+            {{ copiedCredential() === 'Dist@123' ? 'Copied' : 'Copy' }}
+          </button>
+        </div>
+      </div>
+
+      @if (copyErrorMessage()) {
+        <p class="demo-copy-error" role="alert">
+          {{ copyErrorMessage() }}
+        </p>
+      }
+    </div>
+
+    <p class="architecture-explorer-link">
+      Explore the
+      <a
+        href="https://myshopycart-architecture.sumu0588s.workers.dev/#overview"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        MYSHOPYCART Architecture Explorer
+      </a>
+    </p>
+
+  </div>
+</section>

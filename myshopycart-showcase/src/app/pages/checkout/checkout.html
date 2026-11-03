@@ -1,0 +1,200 @@
+
+<div class="page-container">
+  <section class="checkout-page">
+    <header class="checkout-page__header">
+      <div>
+        <p class="checkout-page__eyebrow">MYSHOPYCART</p>
+        <h1 class="checkout-page__title">Delivery Address</h1>
+        <p class="checkout-page__description">
+          Enter your delivery details to continue with your order.
+        </p>
+      </div>
+    </header>
+
+    @if (!hasItems()) {
+      <div class="checkout-empty-state">
+        <h2>Your Cart Is Empty</h2>
+        <p>Add products to your cart before proceeding to checkout.</p>
+        <a routerLink="/products" class="checkout-button">
+          Browse Products
+        </a>
+      </div>
+    } @else {
+      @if (errorMessage()) {
+        <div class="checkout-message checkout-message--error" role="alert">
+          {{ errorMessage() }}
+        </div>
+      }
+
+      <div class="checkout-layout">
+        <div class="checkout-main">
+          <section class="checkout-section">
+            <div class="checkout-section__heading">
+              <span class="checkout-section__number">1</span>
+              <div>
+                <h2>Delivery Address</h2>
+                <p>Where should we deliver your order?</p>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              class="checkout-demo-address-button"
+              (click)="useDemoAddress()"
+            >
+              <span aria-hidden="true">✦</span>
+              Use Demo Address
+            </button>
+
+            @if (demoAddressApplied()) {
+              <p class="checkout-demo-address-note" role="status">
+                Demo address filled successfully. You can edit these details.
+              </p>
+            }
+
+            <div class="checkout-form">
+              <div class="checkout-form__field">
+                <label for="fullName">Full Name *</label>
+                <input
+                  id="fullName"
+                  type="text"
+                  autocomplete="name"
+                  placeholder="Enter your full name"
+                  [value]="deliveryAddress().fullName"
+                  (input)="updateAddressField('fullName', $any($event.target).value)"
+                />
+              </div>
+
+              <div class="checkout-form__field">
+                <label for="mobile">Mobile Number *</label>
+                <input
+                  id="mobile"
+                  type="tel"
+                  maxlength="14"
+                  autocomplete="tel"
+                  placeholder="Enter mobile number"
+                  [value]="deliveryAddress().mobile"
+                  (input)="updateAddressField('mobile', $any($event.target).value)"
+                />
+              </div>
+
+              <div class="checkout-form__field">
+                <label for="addressLine">Address *</label>
+                <textarea
+                  id="addressLine"
+                  rows="3"
+                  autocomplete="street-address"
+                  placeholder="House number, street, area"
+                  [value]="deliveryAddress().addressLine"
+                  (input)="updateAddressField('addressLine', $any($event.target).value)"
+                ></textarea>
+              </div>
+
+              <div class="checkout-form__row">
+                <div class="checkout-form__field">
+                  <label for="city">City *</label>
+                  <input
+                    id="city"
+                    type="text"
+                    autocomplete="address-level2"
+                    placeholder="Enter city"
+                    [value]="deliveryAddress().city"
+                    (input)="updateAddressField('city', $any($event.target).value)"
+                  />
+                </div>
+
+                <div class="checkout-form__field">
+                  <label for="state">State *</label>
+                  <input
+                    id="state"
+                    type="text"
+                    autocomplete="address-level1"
+                    placeholder="Enter state"
+                    [value]="deliveryAddress().state"
+                    (input)="updateAddressField('state', $any($event.target).value)"
+                  />
+                </div>
+
+                <div class="checkout-form__field">
+                  <label for="pincode">PIN Code *</label>
+                  <input
+                    id="pincode"
+                    type="text"
+                    inputmode="numeric"
+                    maxlength="6"
+                    autocomplete="postal-code"
+                    placeholder="6-digit PIN"
+                    [value]="deliveryAddress().pincode"
+                    (input)="updateAddressField('pincode', $any($event.target).value)"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <aside class="checkout-summary">
+          <h2 class="checkout-summary__title">Order Summary</h2>
+
+          <div class="checkout-summary__items">
+            @for (item of cartItems(); track item.id) {
+              <div class="checkout-summary__item">
+                <div class="checkout-summary__item-details">
+                  <strong>{{ item.name }}</strong>
+                  <span>Qty: {{ item.quantity }}</span>
+                </div>
+                <span>
+                  {{ formatPrice(item.price * item.quantity) }}
+                </span>
+              </div>
+            }
+          </div>
+
+          <div class="checkout-summary__divider"></div>
+
+          <div class="checkout-summary__row">
+            <span>Total Items</span>
+            <span>{{ cartCount() }}</span>
+          </div>
+
+          <div class="checkout-summary__row">
+            <span>Subtotal</span>
+            <span>{{ formatPrice(cartSubtotal()) }}</span>
+          </div>
+
+          <div class="checkout-summary__row">
+            <span>Shipping</span>
+            <span>Free</span>
+          </div>
+
+          <div class="checkout-summary__divider"></div>
+
+          <div class="checkout-summary__total">
+            <span>Order Total</span>
+            <strong>{{ formatPrice(cartSubtotal()) }}</strong>
+          </div>
+
+          <p class="checkout-summary__note">
+            This is a demonstration checkout. No real payment will be collected.
+          </p>
+
+          <button
+            type="button"
+            class="checkout-summary__button"
+            (click)="proceedToPayment()"
+          >
+            Continue to Payment
+          </button>
+
+          <button
+            type="button"
+            class="checkout-summary__back-button"
+            (click)="goBackToCart()"
+          >
+            Back to Cart
+          </button>
+        </aside>
+      </div>
+    }
+  </section>
+</div>

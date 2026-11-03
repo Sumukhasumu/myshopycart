@@ -1,0 +1,110 @@
+
+<div class="orders-page">
+  <div class="orders-container">
+
+    <header class="orders-header">
+      <div>
+        <p class="orders-eyebrow">MYSHOPYCART</p>
+        <h1>My Orders</h1>
+        <p class="orders-description">
+          View your order history, purchased products and order status.
+        </p>
+      </div>
+
+      <a routerLink="/products" class="orders-shop-button">
+        Continue Shopping
+      </a>
+    </header>
+
+    @if (!hasOrders()) {
+      <section class="orders-empty-state">
+        <div class="orders-empty-icon" aria-hidden="true">📦</div>
+        <h2>No Orders Yet</h2>
+        <p>
+          You haven't placed any orders yet.
+          Browse our products and place your first demo order.
+        </p>
+        <a routerLink="/products" class="orders-primary-button">
+          Browse Products
+        </a>
+      </section>
+    } @else {
+      <div class="orders-list">
+        @for (order of orders(); track order.id) {
+          <article class="order-card">
+
+            <div class="order-card-header">
+              <div class="order-card-heading">
+                <span class="order-card-label">Order Number</span>
+                <h2>{{ order.id }}</h2>
+              </div>
+
+              <span
+                class="order-status"
+                [ngClass]="getStatusClass(order.status)"
+              >
+                {{ order.status }}
+              </span>
+            </div>
+
+            <div class="order-card-metadata">
+              <div>
+                <span>Order Date</span>
+                <strong>{{ formatDate(order.createdAt) }}</strong>
+              </div>
+
+              <div>
+                <span>Total Items</span>
+                <strong>{{ getItemCount(order) }}</strong>
+              </div>
+
+              <div>
+                <span>Order Total</span>
+                <strong>{{ formatPrice(order.totalAmount) }}</strong>
+              </div>
+            </div>
+
+            <div class="order-card-items">
+              <h3>Items in This Order</h3>
+
+              @for (item of order.items; track item.productId) {
+                <div class="order-item">
+                  <div class="order-item-info">
+                    <strong>{{ item.productName }}</strong>
+                    <span>Product ID: {{ item.productId }}</span>
+                    <span>Quantity: {{ item.quantity }}</span>
+                  </div>
+
+                  <div class="order-item-total">
+                    <span>
+                      {{ formatPrice(item.price) }} × {{ item.quantity }}
+                    </span>
+                    <strong>
+                      {{ formatPrice(getLineTotal(item.price, item.quantity)) }}
+                    </strong>
+                  </div>
+                </div>
+              }
+            </div>
+
+            <div class="order-card-footer">
+              <span>
+                Last Updated: {{ formatDate(order.updatedAt) }}
+              </span>
+
+              <a
+                [routerLink]="['/orders', order.id]"
+                class="order-details-button"
+              >
+                View Order Details
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+
+          </article>
+        }
+      </div>
+    }
+
+  </div>
+</div>

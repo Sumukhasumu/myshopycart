@@ -1,0 +1,37 @@
+.sort-select {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sort-select__label {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.sort-select__control {
+  min-width: 190px;
+  padding: 0.65rem 2.25rem 0.65rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font: inherit;
+  cursor: pointer;
+}
+
+.sort-select__control:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+  .sort-select {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .sort-select__control {
+    width: 100%;
+  }
+}

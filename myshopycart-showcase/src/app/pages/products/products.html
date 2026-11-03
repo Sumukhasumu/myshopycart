@@ -1,0 +1,278 @@
+
+<div class="page-container">
+  <section class="products-page">
+
+  <header class="products-page__header">
+    <div>
+      <p class="products-page__eyebrow">MYSHOPYCART</p>
+
+      <h1 class="products-page__title">
+        {{ pageTitle() }}
+      </h1>
+
+      <p class="products-page__description">
+        {{ pageDescription() }}
+      </p>
+    </div>
+  </header>
+
+  <div class="products-page__controls">
+
+    <div class="category-filter">
+      <label
+        class="category-filter__label"
+        for="category-filter"
+      >
+        Filter by category
+      </label>
+
+      <select
+        id="category-filter"
+        class="category-filter__select"
+        [value]="selectedCategoryId()"
+        (change)="updateCategory($any($event.target).value)"
+      >
+        <option value="">All categories</option>
+
+        @for (category of categories; track category.id) {
+          <option [value]="category.id">
+            {{ category.name }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <div class="sort-select">
+      <label
+        class="sort-select__label"
+        for="product-sort"
+      >
+        Sort by
+      </label>
+
+      <select
+        id="product-sort"
+        class="sort-select__control"
+        [value]="selectedSort()"
+        (change)="updateSort($any($event.target).value)"
+      >
+        <option value="">Default</option>
+        <option value="price,asc">Price: Low to High</option>
+        <option value="price,desc">Price: High to Low</option>
+        <option value="name,asc">Name: A to Z</option>
+        <option value="name,desc">Name: Z to A</option>
+      </select>
+    </div>
+
+  </div>
+
+  @if (error()) {
+  <div
+    class="products-page__message products-page__message--success"
+    role="status"
+    aria-live="polite"
+  >
+    <svg
+      class="products-page__message-icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="9"
+        stroke="currentColor"
+        stroke-width="1.8"
+      />
+      <path
+        d="m8 12 2.5 2.5L16 9"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+
+    <span>{{ error() }}</span>
+  </div>
+}
+
+  @if (loading()) {
+    <div class="products-page__status">
+      <div class="products-page__spinner"></div>
+      <p>Loading products...</p>
+    </div>
+  } @else if (filteredProducts().length === 0) {
+
+    <div class="products-empty-state">
+      <div class="products-empty-state__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path
+            d="M3 3h2l2.2 11.2a2 2 0 0 0 2 1.6h7.5a2 2 0 0 0 1.9-1.5L21 8H6"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <circle cx="10" cy="19" r="1.3" fill="currentColor" />
+          <circle cx="18" cy="19" r="1.3" fill="currentColor" />
+        </svg>
+      </div>
+
+      <h2>
+        @if (selectedCategory()) {
+          No products in this category
+        } @else if (searchKeyword()) {
+          No products found
+        } @else {
+          No products available
+        }
+      </h2>
+
+      <p>
+        @if (selectedCategory()) {
+          There are currently no products available in
+          {{ selectedCategory()?.name }}.
+        } @else if (searchKeyword()) {
+          No products matched "{{ searchKeyword() }}".
+          Try a different search term.
+        } @else {
+          There are currently no products available.
+        }
+      </p>
+    </div>
+
+  } @else {
+
+    <div class="product-grid">
+
+      @for (product of paginatedProducts(); track product.id) {
+        <article class="product-card">
+
+          <button
+            type="button"
+            class="product-card__image-link"
+            (click)="viewProduct(product.id)"
+            [attr.aria-label]="'View ' + product.name"
+          >
+            <div class="product-card__image-wrapper">
+              @if (product.image) {
+                <img
+                  class="product-card__image"
+                  [src]="product.image"
+                  [alt]="product.name"
+                  loading="lazy"
+                />
+              } @else {
+                <div class="product-card__image-placeholder">
+                  {{ product.categoryName }}
+                </div>
+              }
+            </div>
+          </button>
+
+          <div class="product-card__content">
+
+            <div class="product-card__category">
+              {{ product.categoryName }}
+            </div>
+
+            <h2 class="product-card__name">
+              <button
+                type="button"
+                class="product-card__name-link"
+                (click)="viewProduct(product.id)"
+              >
+                {{ product.name }}
+              </button>
+            </h2>
+
+            <p class="product-card__description">
+              {{ product.description }}
+            </p>
+
+            <div class="product-card__rating">
+              <span aria-hidden="true">★</span>
+              {{ product.rating }} / 5
+            </div>
+
+            <div class="product-card__footer">
+              <span class="product-card__price">
+                {{ formatPrice(product.price) }}
+              </span>
+
+              <span class="product-card__stock">
+                {{ product.stock }} available
+              </span>
+            </div>
+
+            <div class="product-card__cart-action">
+              <button
+                type="button"
+                class="ui-button"
+                (click)="addToCart(product)"
+              >
+                Add to Cart
+              </button>
+            </div>
+
+            <div class="product-card__wishlist-action">
+              <button
+                type="button"
+                class="product-card__wishlist-heart"
+                [class.product-card__wishlist-heart--active]="isInWishlist(product.id)"
+                [attr.aria-pressed]="isInWishlist(product.id)"
+                [attr.aria-label]="isInWishlist(product.id) ? 'Remove from wishlist' : 'Add to wishlist'"
+                (click)="toggleWishlist(product.id)"
+              >
+                {{ isInWishlist(product.id) ? '♥' : '♡' }}
+              </button>
+            </div>
+
+          </div>
+        </article>
+      }
+
+    </div>
+
+    @if (totalPages() > 1) {
+      <nav class="products-pagination" aria-label="Product pagination">
+
+        <button
+          type="button"
+          class="products-pagination__button"
+          [disabled]="currentPage() === 0"
+          (click)="updatePage(currentPage() - 1)"
+        >
+          Previous
+        </button>
+
+        @for (page of [].constructor(totalPages()); track $index) {
+          <button
+            type="button"
+            class="products-pagination__button"
+            [class.products-pagination__button--active]="currentPage() === $index"
+            [attr.aria-current]="currentPage() === $index ? 'page' : null"
+            (click)="updatePage($index)"
+          >
+            {{ $index + 1 }}
+          </button>
+        }
+
+        <button
+          type="button"
+          class="products-pagination__button"
+          [disabled]="currentPage() >= totalPages() - 1"
+          (click)="updatePage(currentPage() + 1)"
+        >
+          Next
+        </button>
+
+      </nav>
+    }
+
+  }
+
+  </section>
+</div>

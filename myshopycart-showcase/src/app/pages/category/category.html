@@ -1,0 +1,101 @@
+
+<section class="category-page">
+  @if (category(); as currentCategory) {
+    <header class="category-page__header">
+      <p class="category-page__eyebrow">CATEGORY</p>
+
+      <h1 class="category-page__title">
+        {{ currentCategory.name }}
+      </h1>
+
+      @if (currentCategory.description) {
+        <p class="category-page__description">
+          {{ currentCategory.description }}
+        </p>
+      }
+    </header>
+
+    @if (paginatedProducts().length === 0) {
+      <div class="category-page__empty">
+        <h2>No products in this category</h2>
+        <p>
+          There are currently no products available in this category.
+        </p>
+      </div>
+    } @else {
+      <div class="category-page__grid">
+        @for (product of paginatedProducts(); track product.id) {
+          <article class="category-page__card">
+            <a
+              class="category-page__image-link"
+              [routerLink]="['/products', product.id]"
+            >
+              @if (product.image) {
+                <img
+                  class="category-page__image"
+                  [src]="product.image"
+                  [alt]="product.name"
+                />
+              } @else {
+                <div class="category-page__image-placeholder">
+                  No image available
+                </div>
+              }
+            </a>
+
+            <div class="category-page__card-content">
+              <h2>
+                <a [routerLink]="['/products', product.id]">
+                  {{ product.name }}
+                </a>
+              </h2>
+
+              <p class="category-page__product-description">
+                {{ product.description }}
+              </p>
+
+              <p class="category-page__price">
+                {{ product.price | currency:'INR':'symbol':'1.0-2':'en-IN' }}
+              </p>
+
+              <a
+                class="category-page__view-link"
+                [routerLink]="['/products', product.id]"
+              >
+                View details
+              </a>
+            </div>
+          </article>
+        }
+      </div>
+
+      <nav class="category-page__pagination" aria-label="Category product pages">
+        <button
+          type="button"
+          [disabled]="currentPage() === 0"
+          (click)="goToPage(currentPage() - 1)"
+        >
+          Previous
+        </button>
+
+        <span>
+          Page {{ currentPage() + 1 }} of {{ totalPages() }}
+        </span>
+
+        <button
+          type="button"
+          [disabled]="currentPage() >= totalPages() - 1"
+          (click)="goToPage(currentPage() + 1)"
+        >
+          Next
+        </button>
+      </nav>
+    }
+  } @else {
+    <div class="category-page__status" role="status">
+      <h2>Category not found</h2>
+      <p>This category is not available in the demo catalogue.</p>
+      <a routerLink="/products">Browse Products</a>
+    </div>
+  }
+</section>

@@ -1,0 +1,90 @@
+:root {
+  /* =========================================================
+     MYSHOPYCART INTERACTION & STATE SYSTEM
+     ========================================================= */
+
+  /* ---------------------------------------------------------
+     Focus
+     --------------------------------------------------------- */
+
+  --state-focus-color: var(--color-focus);
+
+  --state-focus-ring:
+    0 0 0 3px var(--color-focus-ring);
+
+  /* ---------------------------------------------------------
+     Hover
+     --------------------------------------------------------- */
+
+  --state-hover-brand-blue:
+    #1258bf;
+
+  --state-hover-brand-green:
+    #209a54;
+
+  --state-hover-surface:
+    var(--color-light-blue);
+
+  /* ---------------------------------------------------------
+     Active / Pressed
+     --------------------------------------------------------- */
+
+  --state-active-brand-blue:
+    #0f4da8;
+
+  --state-active-brand-green:
+    #198447;
+
+  /* ---------------------------------------------------------
+     Disabled
+     --------------------------------------------------------- */
+
+  --state-disabled-background:
+    #eaecf0;
+
+  --state-disabled-text:
+    #98a2b3;
+
+  --state-disabled-border:
+    #d0d5dd;
+
+  /* ---------------------------------------------------------
+     Success
+     --------------------------------------------------------- */
+
+  --state-success-text:
+    var(--color-success-text);
+
+  --state-success-background:
+    var(--color-success-background);
+
+  /* ---------------------------------------------------------
+     Warning
+     --------------------------------------------------------- */
+
+  --state-warning-text:
+    var(--color-warning-text);
+
+  --state-warning-background:
+    var(--color-warning-background);
+
+  /* ---------------------------------------------------------
+     Error
+     --------------------------------------------------------- */
+
+  --state-error-text:
+    var(--color-error-text);
+
+  --state-error-background:
+    var(--color-error-background);
+
+  /* ---------------------------------------------------------
+     Information
+     --------------------------------------------------------- */
+
+  --state-info-text:
+    var(--color-info-text);
+
+  --state-info-background:
+    var(--color-info-background);
+}

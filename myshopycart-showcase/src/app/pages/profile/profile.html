@@ -1,0 +1,113 @@
+
+<section
+  class="profile-page"
+  aria-labelledby="profile-title"
+>
+  <header class="profile-page-header">
+    <p class="profile-page-eyebrow">
+      MYSHOPYCART ACCOUNT
+    </p>
+
+    <h1 id="profile-title">Your Profile</h1>
+
+    @if (isAuthenticated()) {
+      <p class="profile-page-description">
+        View the account information available from your current sign-in.
+      </p>
+    } @else {
+      <p class="profile-page-description">
+        Sign in to view your account information.
+      </p>
+    }
+  </header>
+
+  @if (!isAuthenticated()) {
+    <div class="profile-card">
+      <p role="status">
+        You are not currently signed in.
+      </p>
+
+      <a
+        class="ui-button ui-button-primary ui-button-medium"
+        routerLink="/login"
+      >
+        Sign in
+      </a>
+    </div>
+  } @else {
+    <section
+      class="profile-card"
+      aria-labelledby="profile-information-title"
+    >
+      <div class="profile-card-header">
+        <div>
+          <h2 id="profile-information-title">
+            Profile information
+          </h2>
+
+          <p>
+            These details are available from your current demo sign-in.
+          </p>
+        </div>
+      </div>
+
+      @if (!user()) {
+        <p class="profile-notice" role="status">
+          Your session is authenticated, but profile details are
+          unavailable. Sign out and sign in again to refresh your session.
+        </p>
+      }
+
+      <dl class="profile-details">
+        <div class="profile-detail-row">
+          <dt>Username</dt>
+          <dd>{{ user()?.username || 'Not provided' }}</dd>
+        </div>
+
+        <div class="profile-detail-row">
+          <dt>Email</dt>
+          <dd>{{ user()?.email || 'Not provided' }}</dd>
+        </div>
+
+        <div class="profile-detail-row">
+          <dt>Account ID</dt>
+          <dd>Not provided</dd>
+        </div>
+
+        <div class="profile-detail-row">
+          <dt>Role</dt>
+          <dd>{{ user()?.role || 'Not provided' }}</dd>
+        </div>
+      </dl>
+
+      <p class="profile-page-note">
+        Profile editing is not available because a profile-update API
+        has not been configured in the frontend.
+      </p>
+    </section>
+
+    <nav class="profile-actions" aria-label="Account navigation">
+      <a
+        class="ui-button ui-button-secondary ui-button-medium"
+        routerLink="/orders"
+      >
+        View orders
+      </a>
+
+      <a
+        class="ui-button ui-button-secondary ui-button-medium"
+        routerLink="/settings"
+      >
+        Settings
+      </a>
+
+      <button
+        type="button"
+        class="ui-button ui-button-secondary ui-button-medium"
+        (click)="logout()"
+      >
+        Logout
+      </button>
+    </nav>
+  }
+</section>

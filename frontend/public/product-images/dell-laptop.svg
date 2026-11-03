@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <rect width="800" height="600" rx="32" fill="#f4f7fb"/>
+  <rect x="170" y="105" width="460" height="300" rx="18" fill="#26354a"/>
+  <rect x="190" y="125" width="420" height="260" rx="8" fill="#dbeafe"/>
+  <rect x="225" y="160" width="350" height="190" rx="8" fill="#ffffff"/>
+  <rect x="270" y="190" width="260" height="18" rx="9" fill="#1e88e5"/>
+  <rect x="310" y="225" width="180" height="14" rx="7" fill="#94a3b8"/>
+  <rect x="290" y="255" width="220" height="14" rx="7" fill="#cbd5e1"/>
+  <path d="M110 425h580l-55 45H165z" fill="#64748b"/>
+  <path d="M175 425h450l-32 25H207z" fill="#cbd5e1"/>
+  <text x="400" y="530" text-anchor="middle"
+        font-family="Arial, sans-serif"
+        font-size="34" font-weight="700"
+        fill="#1e293b">MYSHOPYCART • LAPTOP</text>
+</svg>

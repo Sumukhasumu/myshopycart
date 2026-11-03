@@ -1,0 +1,159 @@
+
+@if (product(); as item) {
+  <section class="product-details-page">
+    <a routerLink="/products" class="product-details-page__back">
+      ← Back to Products
+    </a>
+
+    <div class="product-details-page__layout">
+      <div class="product-details-page__image-card">
+        <div class="product-details-page__image-wrapper">
+          @if (item.image) {
+            <img
+              [src]="item.image"
+              [alt]="item.name"
+              class="product-details-page__image"
+            />
+          } @else {
+            <div
+              class="product-details-page__image-placeholder"
+              aria-label="No product image available"
+            >
+              <span>No Image</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="product-details-page__content-card">
+        <div class="product-details-page__content">
+          <p class="product-details-page__eyebrow">
+            PRODUCT DETAILS
+          </p>
+
+          <h1 class="product-details-page__title">
+            {{ item.name }}
+          </h1>
+
+          <p class="product-details-page__description">
+            {{ item.description }}
+          </p>
+
+          <p class="product-details-page__rating">
+            <span>★</span>
+            {{ item.rating }} / 5
+          </p>
+
+          <p class="product-details-page__price">
+            {{ formatPrice(item.price) }}
+          </p>
+
+          <div class="product-details-page__meta">
+            <div class="product-details-page__meta-item">
+              <span>Category</span>
+              <strong>{{ item.categoryName }}</strong>
+            </div>
+
+            <div class="product-details-page__meta-item">
+              <span>Product ID</span>
+              <strong>{{ item.id }}</strong>
+            </div>
+
+            <div class="product-details-page__meta-item">
+              <span>Availability</span>
+              <strong>{{ item.stock }} available</strong>
+            </div>
+          </div>
+
+          <div class="product-details-page__attributes">
+            <h2>Product Attributes</h2>
+
+            <dl>
+              @for (attribute of (item.attributes | keyvalue); track attribute.key) {
+                <div class="product-details-page__attribute">
+                  <dt>{{ attribute.key }}</dt>
+                  <dd>{{ attribute.value }}</dd>
+                </div>
+              }
+            </dl>
+          </div>
+
+          <div class="product-details-page__quantity">
+            <span>Quantity</span>
+
+            <div class="product-details-page__quantity-control">
+              <button
+                type="button"
+                aria-label="Decrease quantity"
+                [disabled]="quantity() <= 1"
+                (click)="decreaseQuantity()"
+              >
+                −
+              </button>
+
+              <strong>{{ quantity() }}</strong>
+
+              <button
+                type="button"
+                aria-label="Increase quantity"
+                [disabled]="quantity() >= item.stock"
+                (click)="increaseQuantity()"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div class="product-details-page__actions">
+            <button
+              type="button"
+              class="product-details-page__primary-button"
+              (click)="addToCart()"
+            >
+              Add to Cart
+            </button>
+
+            <button
+              type="button"
+              class="product-details-page__secondary-button"
+              (click)="toggleWishlist()"
+            >
+              {{ isInWishlist() ? 'Remove from Wishlist' : 'Add to Wishlist' }}
+            </button>
+
+            <a
+              routerLink="/products"
+              class="product-details-page__secondary-button"
+            >
+              Continue Shopping
+            </a>
+          </div>
+
+          @if (cartMessage()) {
+            <p class="product-details-page__cart-message" role="status">
+              {{ cartMessage() }}
+            </p>
+          }
+
+          @if (wishlistMessage()) {
+            <p class="product-details-page__wishlist-message" role="status">
+              {{ wishlistMessage() }}
+            </p>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+} @else {
+  <section class="product-details-page">
+    <div class="product-details-page__status">
+      <p class="product-details-page__error">
+        Product not found.
+      </p>
+
+      <a routerLink="/products" class="product-details-page__secondary-button">
+        Back to Products
+      </a>
+    </div>
+  </section>
+}

@@ -1,0 +1,52 @@
+spring:
+  config:
+    import: optional:configserver:http://localhost:8888
+
+  cloud:
+    config:
+      enabled: false
+      import-check:
+        enabled: false
+
+  datasource:
+    url: jdbc:postgresql://host.docker.internal:5432/myshopycart_notification
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 2
+      minimum-idle: 1
+      connection-timeout: 5000
+      idle-timeout: 30000
+
+  mail:
+    host: localhost
+    port: 2525
+    username: test
+    password: test
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
+    kafka:
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+
+  rabbitmq:
+    host: host.docker.internal
+    port: 5672
+    username: myshopycart
+    password: MyShopyCart@123
+    virtual-host: /
+
+myshopycart:
+  auth:
+    jwt-secret: ${MYSHOPYCART_TEST_JWT_SECRET:test-only-not-a-production-secret}
+  order-service:
+    base-url: http://localhost:8085
+  email:
+    from: test@myshopycart.com

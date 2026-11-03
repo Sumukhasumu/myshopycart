@@ -1,0 +1,60 @@
+server:
+  port: 8085
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/myshopycart_order
+    username: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+eureka:
+  client:
+    enabled: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+  instance:
+    hostname: localhost
+    prefer-ip-address: false
+    instance-id: ${spring.application.name}:${server.port}
+
+cart-service:
+  base-url: http://localhost:8084
+
+product-service:
+  base-url: http://localhost:8082
+
+inventory-service:
+  base-url: http://localhost:8083
+
+payment-service:
+  base-url: http://localhost:8086
+
+auth-service:
+  base-url: http://localhost:8081
+
+minio:
+  endpoint: http://localhost:9100
+  bucket: myshopycart-invoices

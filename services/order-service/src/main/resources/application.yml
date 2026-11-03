@@ -1,0 +1,21 @@
+
+spring:
+  application:
+    name: order-service
+
+  config:
+    import: "optional:configserver:http://localhost:8888"
+
+  datasource:
+    password: postgres
+
+myshopycart:
+  auth:
+    jwt-secret: "myshopycart-phase4-jwt-secret-key-change-this-later"
+
+inventory-service:
+  internal-token: ${INVENTORY_SERVICE_INTERNAL_TOKEN:}
+
+minio:
+  access-key: myshopycart
+  secret-key: myshopycart

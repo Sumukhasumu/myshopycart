@@ -1,0 +1,79 @@
+:root {
+  /* =========================================================
+     MYSHOPYCART BRAND COLORS
+     ========================================================= */
+
+  --color-brand-blue: #1769e0;
+  --color-brand-green: #28b463;
+
+  /* =========================================================
+     MYSHOPYCART NEUTRAL COLORS
+     ========================================================= */
+
+  --color-white: #ffffff;
+  --color-background: #f4f6f8;
+  --color-surface: #f4f8fc;
+
+  --color-navy: #172033;
+  --color-text: #172033;
+  --color-text-secondary: #667085;
+
+  --color-gray: #667085;
+  --color-border: #d9dee7;
+
+  /* =========================================================
+     MYSHOPYCART SUPPORTING COLORS
+     ========================================================= */
+
+  --color-light-blue: #eff6ff;
+
+  --color-orange: #f59e0b;
+  --color-red: #ef4444;
+
+  /* =========================================================
+     SEMANTIC COLORS
+     These base colors remain available for backgrounds,
+     borders, icons and other UI purposes.
+     ========================================================= */
+
+  --color-success: #28b463;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #1769e0;
+
+  /* =========================================================
+     ACCESSIBLE SEMANTIC TEXT COLORS
+     These are optimized for readable text on the matching
+     light state backgrounds.
+     ========================================================= */
+
+  --color-success-text: #027a48;
+  --color-warning-text: #b54708;
+  --color-error-text: #b42318;
+  --color-info-text: #1769e0;
+
+  /* =========================================================
+     INTERACTION / ACCESSIBILITY
+     ========================================================= */
+
+  --color-focus: #1769e0;
+
+  --color-focus-ring: rgb(23 105 224 / 0.25);
+
+  /* =========================================================
+     BACKGROUND / SURFACE STATES
+     ========================================================= */
+
+  --color-success-background: #ecfdf3;
+  --color-warning-background: #fffaeb;
+  --color-error-background: #fef3f2;
+  --color-info-background: #eff6ff;
+
+  /* =========================================================
+     BACKWARD-COMPATIBLE BRAND ALIASES
+     Existing components can continue using these names.
+     ========================================================= */
+
+  --brand-blue: var(--color-brand-blue);
+  --brand-green: var(--color-brand-green);
+}

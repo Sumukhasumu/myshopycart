@@ -1,0 +1,627 @@
+# MYSHOPYCART — PHASE 20 REVISED ROADMAP
+## Local Kubernetes Learning and Cost-Checked Google Cloud Deployment
+
+Project Root: C:\Projects\myshopycart
+Frontend: C:\Projects\myshopycart\frontend
+Documentation: C:\Projects\myshopycart\docs
+
+Java: 21
+Backend: Spring Boot Microservices + Maven
+Frontend: React + Vite + Vitest
+Containerization: Docker + Docker Compose
+Available Laptop RAM: 8 GB
+Local Learning Platform: Kubernetes
+Public Hosting Target: Google Cloud
+Preferred Cloud Kubernetes Option: Google Kubernetes Engine (GKE), only if the complete required deployment can be verified to cost zero
+Alternative Public Hosting: Google Cloud Run, subject to cost and compatibility review
+Current Phase: Phase 20
+Next Phase: Phase 21 — Portfolio Finalization
+
+==================================================
+1. CURRENT PROJECT STATUS
+==================================================
+
+Phases 0–18: Completed according to current project progress.
+
+Phase 19: Development and documentation marked complete. Final verification items remain pending.
+
+Phase 20: Initial repository inspection and containerization inventory completed. Implementation remains pending.
+
+Phase 21: Must not begin until Phase 20 is complete.
+
+Initial repository findings:
+
+- Git repository exists at C:\Projects\myshopycart.
+- Dockerfiles exist for ten backend services.
+- Root docker-compose.yml exists.
+- docker-compose.app.yml exists.
+- docker-compose.phase19-candidate.yml exists.
+- Phase 19 backup Compose files exist.
+- .github\workflows\ci.yml exists.
+- Four Phase 19 Markdown documents exist under docs.
+- infrastructure\kubernetes does not exist yet.
+- Docker Compose CLI is available.
+- Multiple modified and untracked files exist.
+
+IMPORTANT:
+- Preserve all existing files and uncommitted work.
+- Do not reset, clean, overwrite, commit or push anything.
+- Do not assume historical test results prove the current state.
+- Do not start the full application stack unless required.
+- Do not install or start Kubernetes before checking resource requirements.
+- Do not create cloud resources before reviewing and approving the cost plan.
+- Use 8 GB as the current laptop RAM figure.
+
+==================================================
+2. PHASE 20 OBJECTIVES
+==================================================
+
+Phase 20 has two related tracks.
+
+TRACK A — LOCAL KUBERNETES LEARNING
+
+1. Understand Kubernetes architecture and deployment.
+2. Inspect the existing application and Docker configuration.
+3. Choose a suitable local Kubernetes environment for an 8 GB RAM laptop.
+4. Create and validate Kubernetes manifests.
+5. Configure Namespace, Deployment and Service resources.
+6. Configure ConfigMaps and secure Secret handling.
+7. Configure Ingress where appropriate.
+8. Configure readiness and liveness probes.
+9. Configure resource requests and limits.
+10. Understand internal service communication and DNS.
+11. Decide how databases and messaging dependencies will be provided.
+12. Evaluate optional Horizontal Pod Autoscaler (HPA).
+13. Validate deployment and practice troubleshooting.
+14. Document local deployment commands and results.
+
+TRACK B — GOOGLE CLOUD DEPLOYMENT
+
+1. Inspect the actual application architecture and dependencies.
+2. Evaluate Google Kubernetes Engine (GKE) as a serious option.
+3. Calculate the total expected cost of running the required application on GKE.
+4. Proceed with GKE only if the complete required deployment is verified to fit a zero-cost plan and the user approves it.
+5. If GKE cannot meet the zero-cost requirement, keep Kubernetes learning local.
+6. Evaluate Cloud Run as an alternative for public hosting.
+7. Check how databases, Redis, Kafka and RabbitMQ will be provided.
+8. Verify free-tier eligibility, pricing, billing requirements and regional availability.
+9. Deploy publicly only after architecture and cost approval.
+10. Document actual results, limitations, cost assumptions and cleanup instructions.
+
+CLOUD DECISION RULE
+
+GKE provides a monthly credit for eligible cluster-management fees. That credit does not automatically cover compute, networking, databases, storage, load balancing, messaging or all other resources.
+
+Therefore:
+
+- Do not interpret the GKE cluster credit as proof that the entire application can run for free.
+- Calculate the cost of the actual services and dependencies required by MYSHOPYCART.
+- Consider current free-tier eligibility and any temporary promotional credits separately.
+- Do not count temporary credits as a permanent zero-cost solution.
+- Proceed with cloud GKE only if the required deployment has a verified zero-cost path within the applicable limits.
+- If GKE is not fully free, use local Kubernetes for learning and evaluate Cloud Run for public hosting.
+- Cloud Run also requires a cost check, including supporting databases and messaging dependencies.
+- If neither cloud option meets the user's budget, keep the application local until an affordable hosting plan is approved.
+
+The objective is to gain Kubernetes skills and, if feasible, host MYSHOPYCART publicly without unexpected charges.
+
+==================================================
+3. STEP-BY-STEP IMPLEMENTATION ROADMAP
+==================================================
+
+STEP 1 — INITIAL REPOSITORY INSPECTION
+Status: COMPLETED
+
+Inspected:
+- Project root and repository structure.
+- Git working-tree status.
+- Infrastructure directory.
+- Existing Docker Compose files.
+- GitHub Actions workflow directory.
+- Documentation directory.
+- Presence of Kubernetes manifests.
+
+Result:
+No infrastructure\kubernetes directory was found during the initial inspection.
+
+STEP 2 — CONTAINERIZATION INVENTORY
+Status: COMPLETED
+
+Confirmed Dockerfiles exist for:
+
+- api-gateway
+- auth-service
+- cart-service
+- config-server
+- discovery-server
+- inventory-service
+- notification-service
+- order-service
+- payment-service
+- product-service
+
+Confirmed:
+- Docker Compose CLI is installed.
+- .dockerignore exists.
+- Application and infrastructure Compose configurations are separate.
+
+Not yet verified:
+- Whether every Dockerfile builds successfully.
+- Whether Compose configurations are valid.
+- Whether all images run correctly.
+- Whether current configuration is suitable for Kubernetes.
+
+STEP 3 — INSPECT ACTUAL COMPOSE CONFIGURATION
+Status: NEXT
+
+Read:
+- C:\Projects\myshopycart\docker-compose.app.yml
+- C:\Projects\myshopycart\docker-compose.yml
+- C:\Projects\myshopycart\ENVIRONMENT.md
+- Existing Kubernetes and cloud deployment references.
+
+Determine:
+- Service ports and communication paths.
+- Environment variables and configuration sources.
+- Database and messaging dependencies.
+- Health checks and startup dependencies.
+- Persistent storage requirements.
+- Docker-specific hostnames.
+- Existing security and secret-handling practices.
+- Which services are essential for a working public portfolio demonstration.
+
+Do not start containers or modify files during this step.
+
+STEP 4 — INSPECT DOCKERFILES AND BACKEND CONFIGURATION
+
+Inspect existing Dockerfiles and relevant application configuration.
+
+Determine:
+- Java runtime image and build strategy.
+- Image ports and startup commands.
+- Spring profiles and externalized configuration.
+- Health endpoint availability.
+- Database connection configuration.
+- Service discovery and Gateway routing assumptions.
+- JVM memory settings.
+- Configuration required for Kubernetes and cloud execution.
+
+Reuse existing working configuration wherever possible.
+
+STEP 5 — ESTABLISH LOCAL KUBERNETES PREREQUISITES
+
+Check availability of:
+- Docker Desktop.
+- kubectl.
+- A suitable local Kubernetes environment.
+- YAML validator.
+- Kubernetes manifest validator.
+
+Evaluate the 8 GB RAM laptop before selecting a local environment.
+
+Consider the memory used by Windows, Docker Desktop, the local Kubernetes cluster, IDEs and supporting services.
+
+Use conservative resource requests and limits. Start with the minimum necessary workloads and expand incrementally.
+
+Do not install or start a local cluster until the deployment design and resource requirements have been reviewed.
+
+STEP 6 — FINALIZE LOCAL KUBERNETES ARCHITECTURE
+
+Determine:
+- Which application services will be deployed.
+- Which services will be externally accessible.
+- Which services will remain internal ClusterIP services.
+- How configuration and secrets will be supplied.
+- How health checks will work.
+- How services will communicate.
+- How databases and messaging dependencies will be hosted.
+- Which components require persistent storage.
+- Which workloads require resource limits.
+- Which services can be excluded from an initial learning deployment.
+
+Use a simple learning deployment first. Document the more production-oriented alternative separately.
+
+STEP 7 — CREATE KUBERNETES DIRECTORY STRUCTURE
+
+Proposed location:
+
+C:\Projects\myshopycart\infrastructure\kubernetes
+
+Confirm the structure after inspecting the repository.
+
+Potential manifest groups:
+- Namespace.
+- ConfigMap.
+- Secret template or example.
+- Deployments.
+- Services.
+- Ingress.
+- Resource configuration.
+- Optional HPA.
+- Environment-specific overlays or patches.
+
+Do not duplicate existing configuration unnecessarily.
+
+STEP 8 — IMPLEMENT CONFIGURATION AND SECURITY
+
+Implement:
+- Non-sensitive configuration through ConfigMaps.
+- Sensitive values through an appropriate Secret mechanism.
+- Environment-variable injection.
+- Secure database and service credentials.
+- Safe image and configuration practices.
+- Least-privilege access where justified.
+- Documentation of local and cloud secret handling.
+
+Never commit actual passwords, private keys, tokens or cloud credentials.
+
+Kubernetes Secret objects are not automatically encrypted simply because they are called Secrets. Document relevant access controls and encryption requirements.
+
+STEP 9 — DEPLOY THE MINIMUM REQUIRED WORKLOADS LOCALLY
+
+Deploy incrementally rather than all at once.
+
+Suggested order, subject to dependency analysis:
+1. Namespace and configuration.
+2. Required infrastructure dependencies or approved external endpoints.
+3. Application services and internal Services.
+4. API Gateway.
+5. Ingress.
+6. Frontend delivery strategy.
+
+Validate each group before proceeding.
+
+Avoid unnecessary replicas and resource-heavy dependencies on the 8 GB RAM laptop.
+
+Keep services stopped when they are not required. Provide exact start and stop commands for each task.
+
+STEP 10 — VALIDATE LOCAL KUBERNETES DEPLOYMENT
+
+Where supported by the selected environment, verify:
+- YAML syntax.
+- Kubernetes schema and resource validity.
+- Deployment rollout status.
+- Pod readiness and health.
+- Service discovery and connectivity.
+- Gateway access.
+- Application logs.
+- Configuration injection.
+- Secret references.
+- Persistent storage behavior.
+- Failure handling and troubleshooting.
+
+Record exact commands, actual output and limitations.
+
+Do not claim successful deployment without evidence.
+
+STEP 11 — EVALUATE OPTIONAL HPA
+
+Determine whether HPA is appropriate for the selected environment.
+
+Review:
+- CPU and memory requests.
+- Metrics Server or equivalent metrics availability.
+- Minimum and maximum replicas.
+- Resource constraints.
+- Whether the application can scale horizontally.
+- Session, caching and database connection implications.
+
+If HPA is not useful or cannot be validated, document the reason instead of adding it only for demonstration.
+
+STEP 12 — EVALUATE GKE ZERO-COST ELIGIBILITY
+
+Research the current official Google Cloud pricing and free-tier terms.
+
+Start with:
+https://cloud.google.com/kubernetes-engine/pricing
+
+And:
+https://docs.cloud.google.com/free/docs/free-cloud-features
+
+Verify:
+- Whether the billing account is eligible.
+- Whether one eligible Autopilot or zonal Standard cluster can receive the current cluster-management credit.
+- Whether compute and application workloads have any applicable free allowance.
+- Whether the chosen region affects pricing or eligibility.
+- Whether networking, external access and public IP requirements create charges.
+- Whether container image storage creates charges.
+- Whether databases and persistent storage create charges.
+- Whether Redis, Kafka and RabbitMQ create charges.
+- Whether logging, monitoring, data transfer or load balancing create charges.
+- Whether temporary promotional credits are required.
+- Whether any resources continue to incur charges while the application is idle.
+
+Estimate the monthly cost of the actual planned deployment.
+
+A free cluster-management fee is not sufficient evidence that the full application is free.
+
+STEP 13 — MAKE THE GKE GO/NO-GO DECISION
+
+GKE GO CONDITION:
+
+Proceed with public GKE deployment only if:
+- The required application architecture is compatible with GKE.
+- The complete required deployment has a verified zero-cost plan.
+- Free-tier eligibility and resource limits are understood.
+- The plan does not depend on unapproved paid resources.
+- The user reviews and approves the plan.
+
+GKE NO-GO CONDITION:
+
+If the full deployment cannot be verified as zero cost:
+- Do not create a GKE cluster for public hosting.
+- Continue local Kubernetes learning.
+- Do not assume free promotional credits make the solution permanently free.
+- Continue to Step 14 and evaluate Cloud Run for public hosting.
+
+Document the decision and the cost evidence.
+
+STEP 14 — EVALUATE CLOUD RUN FOR PUBLIC HOSTING IF GKE IS NOT FREE
+
+Official pricing:
+https://cloud.google.com/run/pricing
+
+Evaluate:
+- Which Spring Boot services are compatible with Cloud Run.
+- Frontend hosting strategy.
+- Service-to-service communication.
+- Scale-to-zero behavior and minimum-instance settings.
+- Database hosting.
+- Redis, Kafka and RabbitMQ requirements.
+- Container image storage.
+- Networking and external access.
+- HTTPS and domain requirements.
+- Free-tier eligibility and limits.
+- Expected cost for the actual workload.
+
+Do not assume Cloud Run makes the entire application free.
+
+Do not assume that every stateful dependency can be moved to Cloud Run as if it were a persistent database or broker.
+
+Choose the simplest architecture that supports the required public demonstration.
+
+If Cloud Run is not affordable either, document the constraint and keep the application local until an acceptable hosting option is approved.
+
+STEP 15 — SELECT AND DOCUMENT THE PUBLIC HOSTING ARCHITECTURE
+
+Select the approach based on:
+- Actual project requirements.
+- Portfolio demonstration value.
+- Verified free-tier eligibility.
+- Expected recurring cost.
+- Operational complexity.
+- Security.
+- Learning value.
+- Compatibility with the existing application.
+
+Possible outcomes:
+
+OUTCOME A:
+GKE is verified to meet the complete zero-cost requirement.
+Proceed with GKE after approval.
+
+OUTCOME B:
+GKE is not fully free, but Cloud Run provides a suitable approved public-hosting plan.
+Use local Kubernetes for learning and Cloud Run for public hosting.
+
+OUTCOME C:
+Neither option can be verified to meet the budget.
+Keep the application local and document the deployment limitation until an affordable option is approved.
+
+Document:
+- Selected services.
+- Service-to-service communication.
+- Database and messaging strategy.
+- Configuration and secret handling.
+- External routing and HTTPS.
+- Expected costs and assumptions.
+- Limitations and operational responsibilities.
+- A production-oriented alternative.
+
+STEP 16 — PREPARE PRODUCTION CONFIGURATION
+
+Before cloud deployment:
+- Verify container image build configuration.
+- Prepare production environment settings.
+- Configure secret handling.
+- Review identity and access permissions.
+- Review CORS and JWT configuration.
+- Confirm database connectivity requirements.
+- Confirm health checks and logging.
+- Review resource limits and cost controls.
+
+Do not place real credentials in Git, documentation or container images.
+
+STEP 17 — DEPLOY AND VALIDATE ON GOOGLE CLOUD, IF APPROVED
+
+If the selected architecture and budget permit:
+- Build and validate required container images.
+- Publish images to the selected registry.
+- Configure identity and permissions.
+- Deploy required frontend and backend components.
+- Configure database and messaging dependencies.
+- Configure public routing and HTTPS where appropriate.
+- Supply secrets securely.
+- Validate application health.
+- Test the main customer journey.
+- Record actual deployment evidence.
+- Document rollback and troubleshooting.
+- Document how to stop or remove billable resources safely.
+
+Do not create cloud resources automatically.
+
+Do not assume local Kubernetes success proves cloud deployment success.
+
+STEP 18 — CREATE PHASE 20 DOCUMENTATION
+
+Create or update four deliverables:
+
+1. Architecture Document — Word (.docx)
+2. Architecture Document — PDF (.pdf)
+3. Detailed Implementation + Interview Guide — Word (.docx)
+4. Detailed Implementation + Interview Guide — PDF (.pdf)
+
+Architecture Document:
+- Architecture and design decisions.
+- Components and responsibilities.
+- Data flow and service communication.
+- Security and configuration.
+- Infrastructure and deployment architecture.
+- Testing architecture.
+- Final implemented architecture.
+- Phase 20 substeps covered.
+- Important code and manifest snippets.
+- Explanation of why important configurations are used.
+- Definition of Done.
+
+Detailed Implementation + Interview Guide:
+- Step-by-step implementation.
+- Exact commands used.
+- Important manifest and configuration snippets.
+- Runtime behavior.
+- Actual validation and test results.
+- Errors encountered and resolutions where relevant.
+- Known limitations.
+- Local Kubernetes learning versus public hosting.
+- GKE versus Cloud Run decision and reasoning.
+- Google Cloud cost assumptions and deployment decisions.
+- Troubleshooting guidance.
+- Interview questions and answers.
+
+Keep Word and PDF content consistent.
+
+STEP 19 — REVISIT DEFERRED PHASE 19 VERIFICATION
+
+Track the following pending items:
+
+1. Resolve or document the Order Service invoice-storage integration test issue involving Testcontainers, PostgreSQL and Ryuk connectivity.
+2. Validate .github\workflows\ci.yml using a proper YAML and workflow validator.
+3. Reconcile Phase 19 documentation with actual testing evidence.
+4. Run required final regression checks before whole-project sign-off.
+
+Perform these checks when dependencies are available and when doing so will not unnecessarily disrupt Phase 20 work.
+
+STEP 20 — PHASE 20 DEFINITION OF DONE REVIEW
+
+Before declaring Phase 20 complete, verify that:
+- Kubernetes manifests match the implemented architecture.
+- Configuration and secrets are handled appropriately.
+- Required workloads can be deployed in the selected local environment.
+- Service routing and health checks are validated.
+- Ingress is configured and tested where applicable.
+- Resource requirements are documented for the 8 GB RAM laptop.
+- Optional HPA is implemented and validated, or its omission is justified.
+- GKE eligibility and full deployment cost have been evaluated.
+- The GKE GO/NO-GO decision is documented.
+- If GKE is not free, local Kubernetes learning and the approved public-hosting alternative are documented.
+- Google Cloud architecture and pricing assumptions are documented.
+- Cloud deployment results are recorded if deployment was approved and completed.
+- Known limitations are recorded.
+- All four Word/PDF documents exist and are consistent.
+- Implementation can be explained confidently in interviews.
+
+Mark items complete only when supported by evidence.
+
+If public deployment is not approved or is blocked by cost or account constraints, document that limitation accurately rather than claiming deployment completion.
+
+==================================================
+4. IMPORTANT RESOURCE AND SAFETY RULES
+==================================================
+
+- Use Windows CMD, not PowerShell.
+- Give full Notepad commands when file editing is required.
+- Work one step at a time and wait for actual output.
+- Inspect existing files before editing them.
+- Preserve all modified and untracked work.
+- Do not run destructive cleanup or reset commands.
+- Do not commit or push before the entire project is complete.
+- Keep Docker Desktop open unless there is a reason to close it.
+- Start only required containers and services.
+- Provide exact stop commands when services are no longer required.
+- Do not run the complete application stack unnecessarily.
+- Use 8 GB RAM as the current laptop memory figure.
+- Do not install or start Kubernetes without checking resource requirements.
+- Do not deploy billable cloud resources without reviewing and approving the plan.
+- Never put real credentials into Git or documentation.
+- Distinguish historical passing tests from newly verified results.
+- Record genuine errors and known limitations honestly.
+- Review cost implications before using managed databases, clusters, load balancers or messaging services.
+- Do not interpret the GKE cluster-management credit as proof that the full application is free.
+- If GKE is not fully free, keep Kubernetes learning local and evaluate Cloud Run for public hosting.
+
+==================================================
+5. PHASE 19 ITEMS ALREADY IDENTIFIED
+==================================================
+
+Existing documentation files:
+- docs\PHASE19_DOCKER_CI_CD.md
+- docs\PHASE19_IMPLEMENTATION.md
+- docs\PHASE19_OPERATIONS_RUNBOOK.md
+- docs\PHASE19_TEST_RESULTS.md
+
+These files exist, but their content and evidence must be reconciled before final project sign-off.
+
+Existing CI workflow:
+- .github\workflows\ci.yml
+
+Existing application Compose file:
+- docker-compose.app.yml
+
+Existing infrastructure Compose file:
+- docker-compose.yml
+
+Existing Phase 19 candidate:
+- docker-compose.phase19-candidate.yml
+
+Other Phase 19 backup files must be preserved until their purpose is understood.
+
+==================================================
+6. PHASE 20 LEARNING OBJECTIVES
+==================================================
+
+Be able to explain:
+
+- What Kubernetes solves compared with Docker Compose.
+- Pod, Deployment, Service, Namespace and Ingress.
+- ConfigMap versus Secret.
+- Liveness versus readiness probes.
+- Resource requests versus limits.
+- Kubernetes service discovery and DNS.
+- PersistentVolumes and PersistentVolumeClaims.
+- Horizontal scaling and HPA.
+- Image registries and image-pull credentials.
+- How Spring Boot services receive configuration.
+- How databases and messaging dependencies are connected.
+- How Kubernetes deployment differs from Cloud Run and GKE.
+- GKE cluster-management credits versus actual compute costs.
+- Google Cloud cost components and budget controls.
+- Why local Kubernetes success does not prove cloud deployment success.
+- Troubleshooting CrashLoopBackOff, ImagePullBackOff and failed probes.
+- Local learning architecture versus public-hosting architecture.
+- How to estimate and control cloud costs.
+
+==================================================
+7. CURRENT RESUMPTION POINT
+==================================================
+
+Completed:
+- Step 1: Initial repository inspection.
+- Step 2: Containerization inventory.
+
+Next action:
+- Step 3: Inspect actual Compose configuration.
+
+Required files to read:
+- C:\Projects\myshopycart\docker-compose.app.yml
+- C:\Projects\myshopycart\docker-compose.yml
+- C:\Projects\myshopycart\ENVIRONMENT.md
+- Existing Kubernetes and cloud deployment references.
+
+Do not skip Step 3.
+Do not create Kubernetes files before inspecting the existing configuration.
+Do not start the full application stack unnecessarily.
+Do not begin Phase 21 before Phase 20 is complete.
+
+==================================================
+END OF PHASE 20 REVISED ROADMAP
+==================================================

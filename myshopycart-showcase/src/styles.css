@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Brand colors */
+  --color-brand-blue: #1769e0;
+  --color-brand-green: #28b463;
+
+  /* Neutral colors */
+  --color-white: #ffffff;
+  --color-background: #f4f6f8;
+  --color-surface: #f4f8fc;
+  --color-navy: #172033;
+  --color-text: #172033;
+  --color-text-secondary: #667085;
+  --color-gray: #667085;
+  --color-border: #d9dee7;
+
+  /* Supporting colors */
+  --color-light-blue: #eff6ff;
+  --color-orange: #f59e0b;
+  --color-red: #ef4444;
+
+  /* Semantic colors */
+  --color-success: #28b463;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #1769e0;
+
+  --color-success-text: #027a48;
+  --color-warning-text: #b54708;
+  --color-error-text: #b42318;
+  --color-info-text: #1769e0;
+
+  /* Focus */
+  --color-focus: #1769e0;
+  --color-focus-ring: rgb(23 105 224 / 0.25);
+
+  /* Brand aliases */
+  --brand-blue: var(--color-brand-blue);
+  --brand-green: var(--color-brand-green);
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 5rem;
+  --space-10: 6rem;
+
+  /* Border radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-pill: 9999px;
+
+  /* Typography */
+  --font-family-primary: "Poppins", Inter, system-ui, sans-serif;
+  --font-family-body: Inter, system-ui, sans-serif;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --font-size-display: clamp(2.5rem, 5vw, 4rem);
+  --line-height-display: 1.1;
+  --letter-spacing-display: -0.03em;
+
+  --font-size-h1: clamp(2rem, 4vw, 3rem);
+  --font-size-h2: clamp(1.75rem, 3vw, 2.25rem);
+  --font-size-h3: clamp(1.375rem, 2vw, 1.75rem);
+  --font-size-h4: 1.25rem;
+
+  /* Aliases used by the original home.css */
+  --font-size-heading-2: var(--font-size-h2);
+  --font-size-heading-3: var(--font-size-h3);
+
+  --line-height-heading: 1.2;
+  --letter-spacing-heading: -0.02em;
+
+  --font-size-body-lg: 1.125rem;
+  --font-size-body: 1rem;
+  --font-size-body-sm: 0.875rem;
+  --font-size-caption: 0.75rem;
+
+  --line-height-body: 1.5;
+  --line-height-body-relaxed: 1.6;
+
+  --font-size-button: 0.9375rem;
+  --font-size-input: 1rem;
+  --font-size-label: 0.875rem;
+  --font-size-helper: 0.8125rem;
+
+  --font-size-eyebrow: 0.875rem;
+  --font-size-price: 1.5rem;
+  --font-size-price-lg: 2rem;
+
+  /* Shadows */
+  --shadow-none: none;
+  --shadow-sm: 0 1px 3px rgb(16 24 40 / 0.08);
+  --shadow-md: 0 4px 12px rgb(16 24 40 / 0.1);
+  --shadow-lg: 0 10px 24px rgb(16 24 40 / 0.12);
+  --shadow-xl: 0 20px 40px rgb(16 24 40 / 0.16);
+
+  /* Interaction states */
+  --state-focus-color: var(--color-focus);
+  --state-focus-ring: 0 0 0 3px var(--color-focus-ring);
+
+  --state-hover-brand-blue: #1258bf;
+  --state-hover-brand-green: #209a54;
+  --state-hover-surface: var(--color-light-blue);
+
+  --state-active-brand-blue: #0f4da8;
+  --state-active-brand-green: #198447;
+
+  --state-disabled-background: #eaecf0;
+  --state-disabled-text: #98a2b3;
+  --state-disabled-border: #d0d5dd;
+
+  --state-success-text: #027a48;
+  --state-success-background: #ecfdf3;
+  --state-warning-text: #b54708;
+  --state-warning-background: #fffaeb;
+  --state-error-text: #b42318;
+  --state-error-background: #fef3f2;
+  --state-info-text: #1769e0;
+  --state-info-background: #eff6ff;
+
+  /* Responsive settings */
+  --breakpoint-mobile: 480px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
+  --breakpoint-wide: 1280px;
+
+  --container-padding-mobile: var(--space-4);
+  --container-padding-tablet: var(--space-5);
+  --container-padding-desktop: var(--space-6);
+
+  --touch-target-min: 44px;
+}
+
+/* Global reset */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--color-navy);
+  background: var(--color-background);
+  font-family: var(--font-family-body);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+::selection {
+  background: #cce9d5;
+  color: #172033;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

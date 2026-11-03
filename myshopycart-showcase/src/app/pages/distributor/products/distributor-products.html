@@ -1,0 +1,266 @@
+
+<main class="distributor-products">
+  <header class="distributor-products__header">
+    <div>
+      <p class="distributor-products__eyebrow">
+        DISTRIBUTOR PORTAL
+      </p>
+
+      <h1>Product Management</h1>
+
+      <p>
+        View and manage the products associated with your distributor
+        account.
+      </p>
+    </div>
+
+    <a
+      class="distributor-products__back"
+      routerLink="/distributor/dashboard"
+    >
+      Back to Dashboard
+    </a>
+  </header>
+
+  <section
+    class="distributor-products__content"
+    aria-labelledby="distributor-products-title"
+  >
+    @if (successMessage()) {
+      <p class="distributor-products__success" role="status">
+        {{ successMessage() }}
+      </p>
+    }
+
+    @if (errorMessage()) {
+      <p class="distributor-products__error-message" role="alert">
+        {{ errorMessage() }}
+      </p>
+    }
+
+    <div class="distributor-products__summary">
+      <div>
+        <h2 id="distributor-products-title">My Products</h2>
+
+        <p>
+          {{ totalElements() }}
+          {{ totalElements() === 1 ? 'product' : 'products' }}
+        </p>
+      </div>
+
+      <button
+        type="button"
+        class="distributor-products__button distributor-products__button--primary"
+        (click)="openAddForm()"
+      >
+        Add Product
+      </button>
+    </div>
+
+    @if (isFormVisible()) {
+      <section
+        class="distributor-products__form"
+        aria-labelledby="product-form-title"
+      >
+        <h2 id="product-form-title">
+          {{ editingProductId() !== null ? 'Edit Product' : 'Add Product' }}
+        </h2>
+
+        <form (ngSubmit)="saveProduct()">
+          <div class="distributor-products__form-grid">
+            <div class="distributor-products__field">
+              <label for="productName">Product name</label>
+              <input
+                id="productName"
+                name="productName"
+                type="text"
+                [(ngModel)]="productName"
+                required
+                maxlength="120"
+              />
+            </div>
+
+            <div class="distributor-products__field">
+              <label for="productCategory">Category</label>
+              <select
+                id="productCategory"
+                name="categoryId"
+                [(ngModel)]="categoryId"
+                required
+              >
+                <option value="">Select category</option>
+                @for (category of categories(); track category.id) {
+                  <option [value]="category.id">
+                    {{ category.name }}
+                  </option>
+                }
+              </select>
+            </div>
+
+            <div class="distributor-products__field">
+              <label for="productPrice">Price (₹)</label>
+              <input
+                id="productPrice"
+                name="price"
+                type="number"
+                [(ngModel)]="price"
+                min="0.01"
+                step="0.01"
+                required
+              />
+            </div>
+
+            <div class="distributor-products__field">
+              <label for="productStock">Initial stock</label>
+              <input
+                id="productStock"
+                name="stock"
+                type="number"
+                [(ngModel)]="stock"
+                min="0"
+                step="1"
+                required
+              />
+            </div>
+
+            <div class="distributor-products__field distributor-products__field--full">
+              <label for="productDescription">Description</label>
+              <textarea
+                id="productDescription"
+                name="description"
+                [(ngModel)]="description"
+                rows="4"
+                maxlength="1000"
+                required
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="distributor-products__form-actions">
+            <button
+              type="submit"
+              class="distributor-products__button distributor-products__button--primary"
+            >
+              {{ editingProductId() !== null ? 'Update Product' : 'Save Product' }}
+            </button>
+
+            <button
+              type="button"
+              class="distributor-products__button"
+              (click)="closeForm()"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </section>
+    }
+
+    @if (paginatedProducts().length === 0) {
+      <div class="distributor-products__empty">
+        <h3>No products found</h3>
+        <p>
+          There are no products associated with your
+          distributor account yet. Add your first product to get started.
+        </p>
+        <a routerLink="/products">Browse Product Catalogue</a>
+      </div>
+    } @else {
+      <div class="distributor-products__grid">
+        @for (product of paginatedProducts(); track product.id) {
+          <article class="distributor-products__card">
+            @if (product.imageUrls.length > 0 && product.imageUrls[0]) {
+              <img
+                class="distributor-products__image"
+                [src]="product.imageUrls[0]"
+                [alt]="product.name || 'Product'"
+                loading="lazy"
+              />
+            } @else {
+              <div
+                class="distributor-products__image-placeholder"
+                aria-label="No product image"
+              >
+                No image
+              </div>
+            }
+
+            <div class="distributor-products__card-body">
+              <h3>{{ product.name || 'Unnamed product' }}</h3>
+
+              <p class="distributor-products__price">
+                {{ product.price | currency:'INR':'symbol':'1.2-2':'en-IN' }}
+              </p>
+
+              @if (product.categoryName) {
+                <p class="distributor-products__meta">
+                  Category: {{ product.categoryName }}
+                </p>
+              }
+
+              <p class="distributor-products__meta">
+                Available stock: {{ product.stock }}
+              </p>
+
+              @if (product.description) {
+                <p class="distributor-products__description">
+                  {{ product.description }}
+                </p>
+              }
+
+              <div class="distributor-products__card-actions">
+                <a [routerLink]="['/products', product.id]">
+                  View Product
+                </a>
+
+                <button
+                  type="button"
+                  class="distributor-products__button"
+                  (click)="openEditForm(product)"
+                >
+                  Edit
+                </button>
+
+                <button
+                  type="button"
+                  class="distributor-products__button distributor-products__button--danger"
+                  (click)="deleteProduct(product)"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+
+      <nav
+        class="distributor-products__pagination"
+        aria-label="Product pages"
+      >
+        <button
+          type="button"
+          [disabled]="currentPage() <= 0"
+          (click)="previousPage()"
+        >
+          Previous
+        </button>
+
+        <span>
+          Page {{ currentPage() + 1 }}
+          @if (totalPages() > 0) {
+            of {{ totalPages() }}
+          }
+        </span>
+
+        <button
+          type="button"
+          [disabled]="totalPages() === 0 || currentPage() + 1 >= totalPages()"
+          (click)="nextPage()"
+        >
+          Next
+        </button>
+      </nav>
+    }
+  </section>
+</main>

@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: product-service
+
+  config:
+    import: "optional:configserver:http://localhost:8888"
+
+myshopycart:
+  auth:
+    jwt-secret: "MYSHOPYCART-LOCAL-JWT-SECRET-FOR-DEVELOPMENT-ONLY-2026"
+
+  product:
+    message: "Product Service is running"
+    service-name: "product-service"
+
+server:
+  port: 8082
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+  instance:
+    prefer-ip-address: true
+
+logging:
+  level:
+    org.springframework.security: DEBUG

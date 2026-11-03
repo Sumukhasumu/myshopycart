@@ -1,0 +1,73 @@
+
+<main class="categories-page">
+  <header class="categories-page__header">
+    <p class="categories-page__eyebrow">EXPLORE MYSHOPYCART</p>
+
+    <h1 class="categories-page__title">Shop by Category</h1>
+
+    <p class="categories-page__description">
+      Explore our available product categories and discover products
+      that match your interests.
+    </p>
+  </header>
+
+  @if (parentCategories().length === 0) {
+    <section class="categories-page__empty">
+      <h2>No categories available</h2>
+      <p>There are currently no product categories to display.</p>
+      <a routerLink="/products">Browse All Products</a>
+    </section>
+  } @else {
+    <section class="categories-page__list" aria-label="Product categories">
+      @for (category of parentCategories(); track category.id) {
+        <article class="categories-page__card">
+          <div class="categories-page__card-content">
+            <h2>
+              <a [routerLink]="['/categories', category.id]">
+                {{ category.name }}
+              </a>
+            </h2>
+
+            @if (category.description) {
+              <p>{{ category.description }}</p>
+            }
+
+            <a
+              class="categories-page__browse-link"
+              [routerLink]="['/categories', category.id]"
+            >
+              Explore {{ category.name }}
+            </a>
+          </div>
+
+          @if (getSubcategories(category.id).length > 0) {
+            <div class="categories-page__subcategories">
+              <h3>Explore subcategories</h3>
+
+              <div class="categories-page__subcategory-list">
+                @for (
+                  subcategory of getSubcategories(category.id);
+                  track subcategory.id
+                ) {
+                  <a [routerLink]="['/categories', subcategory.id]">
+                    {{ subcategory.name }}
+                    <span aria-hidden="true">→</span>
+                  </a>
+                }
+              </div>
+            </div>
+          }
+        </article>
+      }
+    </section>
+  }
+
+  <section class="categories-page__footer">
+    <div>
+      <h2>Looking for something specific?</h2>
+      <p>Explore the complete product catalogue.</p>
+    </div>
+
+    <a routerLink="/products">Browse All Products</a>
+  </section>
+</main>

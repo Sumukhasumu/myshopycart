@@ -1,0 +1,269 @@
+
+<div class="page-container">
+  <section class="payment-page">
+    <header class="payment-page__header">
+      <p class="payment-page__eyebrow">MYSHOPYCART</p>
+      <h1 class="payment-page__title">Payment</h1>
+      <p class="payment-page__description">
+        Select your payment method and complete the demo payment.
+      </p>
+    </header>
+
+    @if (!order()) {
+      <div class="payment-empty-state">
+        <h2>Order Not Found</h2>
+        <p>
+          This demo order is unavailable. Please return to your cart
+          and complete checkout again.
+        </p>
+        <a routerLink="/cart" class="payment-button">
+          Return to Cart
+        </a>
+      </div>
+    } @else if (!hasItems()) {
+      <div class="payment-empty-state">
+        <h2>Order Has No Products</h2>
+        <p>This order does not contain any products.</p>
+        <a routerLink="/cart" class="payment-button">
+          Return to Cart
+        </a>
+      </div>
+    } @else {
+      @if (errorMessage()) {
+        <div class="payment-message" role="alert">
+          {{ errorMessage() }}
+        </div>
+      }
+
+      <div class="payment-layout">
+        <div class="payment-main">
+          <section class="payment-section">
+            <div class="payment-section__heading">
+              <span class="payment-section__number">1</span>
+              <div>
+                <h2>Order Information</h2>
+                <p>Review your order before payment.</p>
+              </div>
+            </div>
+
+            <div class="payment-order-information">
+              <p>
+                <strong>Order ID:</strong>
+                {{ order()!.id }}
+              </p>
+              <p>
+                <strong>Order Status:</strong>
+                {{ order()!.status }}
+              </p>
+            </div>
+          </section>
+
+          @if (isOrderPayable()) {
+            <section class="payment-section">
+              <div class="payment-section__heading">
+                <span class="payment-section__number">2</span>
+                <div>
+                  <h2>Select Payment Method</h2>
+                  <p>Choose how you want to pay.</p>
+                </div>
+              </div>
+
+              <div class="payment-methods">
+                <button
+                  type="button"
+                  class="payment-method"
+                  [class.payment-method--selected]="paymentMethod() === 'upi'"
+                  [attr.aria-pressed]="paymentMethod() === 'upi'"
+                  (click)="selectPaymentMethod('upi')"
+                >
+                  <span class="payment-method__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <rect x="5" y="2.5" width="14" height="19" rx="2"
+                        stroke="currentColor" stroke-width="1.7"/>
+                      <path d="M9 6h6M10 18h4" stroke="currentColor"
+                        stroke-width="1.7" stroke-linecap="round"/>
+                    </svg>
+                  </span>
+                  <span class="payment-method__content">
+                    <strong>UPI</strong>
+                    <small>Demo UPI payment</small>
+                  </span>
+                  <span class="payment-method__radio"></span>
+                </button>
+
+                <button
+                  type="button"
+                  class="payment-method"
+                  [class.payment-method--selected]="paymentMethod() === 'card'"
+                  [attr.aria-pressed]="paymentMethod() === 'card'"
+                  (click)="selectPaymentMethod('card')"
+                >
+                  <span class="payment-method__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <rect x="2.5" y="4.5" width="19" height="15"
+                        rx="2" stroke="currentColor" stroke-width="1.7"/>
+                      <path d="M3 9h18M6 15h5" stroke="currentColor"
+                        stroke-width="1.7" stroke-linecap="round"/>
+                    </svg>
+                  </span>
+                  <span class="payment-method__content">
+                    <strong>Credit / Debit Card</strong>
+                    <small>Demo card payment</small>
+                  </span>
+                  <span class="payment-method__radio"></span>
+                </button>
+
+                <button
+                  type="button"
+                  class="payment-method"
+                  [class.payment-method--selected]="paymentMethod() === 'wallet'"
+                  [attr.aria-pressed]="paymentMethod() === 'wallet'"
+                  (click)="selectPaymentMethod('wallet')"
+                >
+                  <span class="payment-method__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <rect x="3" y="5" width="18" height="15"
+                        rx="2" stroke="currentColor" stroke-width="1.7"/>
+                      <path d="M3 9h18M16 14h2"
+                        stroke="currentColor" stroke-width="1.7"
+                        stroke-linecap="round"/>
+                    </svg>
+                  </span>
+                  <span class="payment-method__content">
+                    <strong>Digital Wallet</strong>
+                    <small>Demo wallet payment</small>
+                  </span>
+                  <span class="payment-method__radio"></span>
+                </button>
+              </div>
+            </section>
+
+            <section class="payment-section">
+              <div class="payment-section__heading">
+                <span class="payment-section__number">3</span>
+                <div>
+                  <h2>Payment Simulation</h2>
+                  <p>Select the outcome to simulate.</p>
+                </div>
+              </div>
+
+              <div class="payment-simulation-options">
+                <label
+                  class="payment-simulation-option"
+                  [class.payment-simulation-option--selected]="paymentSimulation() === 'success'"
+                >
+                  <input
+                    type="radio"
+                    name="paymentSimulation"
+                    value="success"
+                    [checked]="paymentSimulation() === 'success'"
+                    (change)="selectPaymentSimulation('success')"
+                  />
+                  <span class="payment-simulation-option__indicator payment-simulation-option__indicator--success">
+                    ✓
+                  </span>
+                  <span>
+                    <strong>Simulate Successful Payment</strong>
+                    <small>Continue with a successful demo transaction.</small>
+                  </span>
+                </label>
+
+                <label
+                  class="payment-simulation-option"
+                  [class.payment-simulation-option--selected]="paymentSimulation() === 'failure'"
+                >
+                  <input
+                    type="radio"
+                    name="paymentSimulation"
+                    value="failure"
+                    [checked]="paymentSimulation() === 'failure'"
+                    (change)="selectPaymentSimulation('failure')"
+                  />
+                  <span class="payment-simulation-option__indicator payment-simulation-option__indicator--failure">
+                    ×
+                  </span>
+                  <span>
+                    <strong>Simulate Failed Payment</strong>
+                    <small>
+                      Test payment failure. The order will be cancelled
+                      and your cart will be preserved.
+                    </small>
+                  </span>
+                </label>
+              </div>
+            </section>
+
+            <p class="payment-disclaimer">
+              This is a demonstration only. No real payment gateway,
+              financial credentials or transactions are involved.
+            </p>
+          } @else {
+            <div class="payment-message" role="alert">
+              This order is {{ order()!.status }} and cannot be paid again.
+              Please return to your cart to start a new order.
+            </div>
+          }
+        </div>
+
+        <aside class="payment-summary">
+          <h2 class="payment-summary__title">Order Summary</h2>
+
+          <div class="payment-summary__items">
+            @for (item of cartItems(); track item.id) {
+              <div class="payment-summary__item">
+                <div>
+                  <strong>{{ item.name }}</strong>
+                  <small>Qty: {{ item.quantity }}</small>
+                </div>
+                <span>{{ formatPrice(item.price * item.quantity) }}</span>
+              </div>
+            }
+          </div>
+
+          <div class="payment-summary__divider"></div>
+
+          <div class="payment-summary__row">
+            <span>Total Items</span>
+            <strong>{{ cartCount() }}</strong>
+          </div>
+
+          <div class="payment-summary__row">
+            <span>Subtotal</span>
+            <strong>{{ formatPrice(cartSubtotal()) }}</strong>
+          </div>
+
+          <div class="payment-summary__row">
+            <span>Shipping</span>
+            <strong>Free</strong>
+          </div>
+
+          <div class="payment-summary__divider"></div>
+
+          <div class="payment-summary__total">
+            <span>Amount to Pay</span>
+            <strong>{{ formatPrice(cartSubtotal()) }}</strong>
+          </div>
+
+          @if (isOrderPayable()) {
+            <button
+              type="button"
+              class="payment-summary__pay-button"
+              [disabled]="processing()"
+              (click)="payNow()"
+            >
+              {{ processing() ? 'Processing payment...' : 'Pay Now (Simulation)' }}
+            </button>
+          }
+
+          <button
+            type="button"
+            class="payment-summary__back-button"
+            (click)="goBackToCheckout()"
+          >
+            Back to Delivery Address
+          </button>
+        </aside>
+      </div>
+    }
+  </section>
+</div>

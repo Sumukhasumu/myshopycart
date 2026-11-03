@@ -1,0 +1,65 @@
+<svg
+  width="520"
+  height="130"
+  viewBox="0 0 520 130"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-labelledby="title desc"
+>
+  <title id="title">MYSHOPYCART Wordmark</title>
+  <desc id="desc">
+    MYSHOPYCART wordmark with the tagline SHOP SMART • LIVE BETTER
+  </desc>
+
+  <!-- Wordmark -->
+  <text
+    x="260"
+    y="58"
+    text-anchor="middle"
+    font-family="Poppins, Inter, Arial, sans-serif"
+    font-size="48"
+    font-weight="800"
+    letter-spacing="-1.8"
+  >
+    <tspan fill="#172033">MY</tspan><tspan fill="#1769E0">SHOP</tspan><tspan fill="#28B463">YCART</tspan>
+  </text>
+
+  <!-- Tagline -->
+  <text
+    x="260"
+    y="91"
+    text-anchor="middle"
+    font-family="Poppins, Inter, Arial, sans-serif"
+    font-size="14"
+    font-weight="600"
+    letter-spacing="3.5"
+    fill="#172033"
+  >
+    SHOP SMART • LIVE BETTER
+  </text>
+
+  <!-- Decorative brand line -->
+  <rect
+    x="225"
+    y="106"
+    width="70"
+    height="3"
+    rx="1.5"
+    fill="#1769E0"
+  />
+
+  <circle
+    cx="218"
+    cy="107.5"
+    r="2.5"
+    fill="#28B463"
+  />
+
+  <circle
+    cx="302"
+    cy="107.5"
+    r="2.5"
+    fill="#28B463"
+  />
+</svg>

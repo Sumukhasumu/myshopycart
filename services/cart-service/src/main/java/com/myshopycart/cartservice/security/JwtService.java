@@ -1,0 +1,80 @@
+package com.myshopycart.cartservice.security;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
+import java.util.Date;
+
+@Service
+public class JwtService {
+
+    @Value("${myshopycart.auth.jwt-secret}")
+    private String jwtSecret;
+
+    public String extractUsername(String token) {
+        return extractAllClaims(token).getSubject();
+    }
+
+    public Long extractUserId(String token) {
+        return extractAllClaims(token).get("userId", Long.class);
+    }
+
+    public String extractRole(String token) {
+        return extractAllClaims(token).get("role", String.class);
+    }
+
+    public boolean isTokenValid(String token) {
+
+        try {
+
+            Claims claims = extractAllClaims(token);
+
+            System.out.println(
+                    "JWT validation - subject: "
+                            + claims.getSubject());
+
+            System.out.println(
+                    "JWT validation - expiration: "
+                            + claims.getExpiration());
+
+            System.out.println(
+                    "JWT validation - current time: "
+                            + new Date());
+
+            return claims.getExpiration().after(new Date());
+
+        } catch (Exception e) {
+
+            System.out.println(
+                    "JWT validation failed: "
+                            + e.getClass().getName());
+
+            System.out.println(
+                    "JWT validation error: "
+                            + e.getMessage());
+
+            return false;
+        }
+    }
+
+    private Claims extractAllClaims(String token) {
+
+        return Jwts.parser()
+                .verifyWith(getSigningKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+    }
+
+    private SecretKey getSigningKey() {
+
+        return Keys.hmacShaKeyFor(
+                jwtSecret.getBytes(StandardCharsets.UTF_8)
+        );
+    }
+}

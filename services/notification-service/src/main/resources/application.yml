@@ -1,0 +1,75 @@
+
+spring:
+  application:
+    name: notification-service
+
+  config:
+    import: optional:configserver:http://localhost:8888
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/myshopycart_notification
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: sumu0588s@gmail.com
+    password: ${MYSHOPYCART_EMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: myshopycart-notification
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    listener:
+      missing-topics-fatal: false
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: myshopycart
+    password: MyShopyCart@123
+
+server:
+  port: 8087
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+myshopycart:
+  auth:
+    jwt-secret: ${MYSHOPYCART_JWT_SECRET}
+  order-service:
+    base-url: ${MYSHOPYCART_ORDER_SERVICE_URL:http://localhost:8085}
+  email:
+    from: ${MYSHOPYCART_EMAIL_FROM:sumu0588@gmail.com}
+
+msg91:
+  auth-key: ${MYSHOPYCART_MSG91_AUTH_KEY:}
+  template-id: ${MYSHOPYCART_MSG91_TEMPLATE_ID:}

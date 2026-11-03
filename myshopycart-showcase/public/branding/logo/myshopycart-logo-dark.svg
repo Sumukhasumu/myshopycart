@@ -1,0 +1,109 @@
+<svg
+  width="720"
+  height="180"
+  viewBox="0 0 720 180"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-labelledby="title desc"
+>
+  <title id="title">MYSHOPYCART</title>
+  <desc id="desc">
+    MYSHOPYCART shopping cart logo with the tagline SHOP SMART • LIVE BETTER
+  </desc>
+
+  <!-- Cart motion lines -->
+  <g>
+    <rect x="18" y="83" width="54" height="12" rx="6" fill="#28B463"/>
+    <rect x="28" y="103" width="44" height="12" rx="6" fill="#28B463"/>
+    <rect x="38" y="123" width="34" height="12" rx="6" fill="#28B463"/>
+  </g>
+
+  <!-- Shopping cart basket -->
+  <path
+    d="M70 55
+       C70 49 75 44 81 44
+       H218
+       C225 44 230 50 228 57
+       L211 116
+       C209 123 203 128 196 128
+       H103
+       C96 128 90 123 88 117
+       L70 55Z"
+    fill="#1769E0"
+  />
+
+  <!-- Cart inner surface -->
+  <path
+    d="M86 62
+       H212
+       L198 111
+       H101
+       L86 62Z"
+    fill="#0B1F3A"
+  />
+
+  <!-- Shopping bag -->
+  <path
+    d="M111 49
+       V38
+       C111 20 124 8 143 8
+       C162 8 175 20 175 38
+       V49"
+    stroke="#28B463"
+    stroke-width="13"
+    stroke-linecap="round"
+  />
+
+  <path
+    d="M98 48
+       C98 43 102 39 107 39
+       H179
+       C184 39 188 43 188 48
+       L181 91
+       C180 98 174 103 167 103
+       H119
+       C112 103 106 98 105 91
+       L98 48Z"
+    fill="#28B463"
+  />
+
+  <!-- Bag highlight -->
+  <path
+    d="M125 58
+       C125 69 132 77 143 77
+       C154 77 161 69 161 58"
+    stroke="#FFFFFF"
+    stroke-width="6"
+    stroke-linecap="round"
+  />
+
+  <!-- Cart wheels -->
+  <circle cx="111" cy="146" r="17" fill="#1769E0"/>
+  <circle cx="191" cy="146" r="17" fill="#1769E0"/>
+
+  <!-- Brand wordmark -->
+  <text
+    x="250"
+    y="101"
+    font-family="Poppins, Inter, Arial, sans-serif"
+    font-size="54"
+    font-weight="800"
+    letter-spacing="-1.8"
+  >
+    <tspan fill="#FFFFFF">MY</tspan><tspan fill="#1769E0">SHOP</tspan><tspan fill="#28B463">YCART</tspan>
+  </text>
+
+  <!-- Tagline -->
+  <text
+    x="253"
+    y="134"
+    font-family="Poppins, Inter, Arial, sans-serif"
+    font-size="17"
+    font-weight="600"
+    letter-spacing="4"
+    fill="#FFFFFF"
+  >
+    SHOP SMART • LIVE BETTER
+  </text>
+</svg>

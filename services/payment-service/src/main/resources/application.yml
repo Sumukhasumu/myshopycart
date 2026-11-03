@@ -1,0 +1,82 @@
+
+server:
+  port: 8086
+
+spring:
+  application:
+    name: payment-service
+
+  config:
+    import: optional:configserver:http://localhost:8888
+
+  cloud:
+    config:
+      uri: http://localhost:8888
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/myshopycart_payment
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+myshopycart:
+  auth:
+    jwt-secret: "myshopycart-phase4-jwt-secret-key-change-this-later"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,circuitbreakers
+  endpoint:
+    health:
+      show-details: always
+
+resilience4j:
+  timelimiter:
+    instances:
+      paymentGateway:
+        timeout-duration: 2s
+        cancel-running-future: true
+
+  retry:
+    instances:
+      paymentGateway:
+        max-attempts: 3
+        wait-duration: 500ms
+        retry-exceptions:
+          - java.util.concurrent.TimeoutException
+
+  circuitbreaker:
+    instances:
+      paymentGateway:
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 5
+        minimum-number-of-calls: 5
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 5s
+        permitted-number-of-calls-in-half-open-state: 2
+        automatic-transition-from-open-to-half-open-enabled: true

@@ -1,0 +1,200 @@
+
+<div class="page-container">
+  <section class="cart-page">
+
+    <header class="cart-page__header">
+      <div>
+        <p class="cart-page__eyebrow">MYSHOPYCART</p>
+        <h1 class="cart-page__title">Shopping Cart</h1>
+        <p class="cart-page__description">
+          Review your selected products before checkout.
+        </p>
+      </div>
+
+      @if (hasItems()) {
+        <button
+          type="button"
+          class="cart-page__clear-button"
+          (click)="clearCart()"
+        >
+          Clear Cart
+        </button>
+      }
+    </header>
+
+    @if (message()) {
+      <div class="cart-page__message" role="status" aria-live="polite">
+        {{ message() }}
+      </div>
+    }
+
+    @if (hasItems()) {
+
+      <div class="cart-layout">
+
+        <div class="cart-items">
+
+          @for (item of cartItems(); track item.id) {
+            <article class="cart-item">
+
+              <div class="cart-item__image-wrapper">
+                @if (item.image) {
+                  <img
+                    class="cart-item__image"
+                    [src]="item.image"
+                    [alt]="item.name"
+                  />
+                } @else {
+                  <div class="cart-item__image-placeholder">
+                    {{ item.categoryName }}
+                  </div>
+                }
+              </div>
+
+              <div class="cart-item__details">
+                <span class="cart-item__category">
+                  {{ item.categoryName }}
+                </span>
+
+                <h2 class="cart-item__name">
+                  {{ item.name }}
+                </h2>
+
+                <p class="cart-item__description">
+                  {{ item.description }}
+                </p>
+
+                <p class="cart-item__price">
+                  {{ formatPrice(item.price) }}
+                </p>
+
+                <div class="cart-item__quantity">
+                  <span>Quantity</span>
+
+                  <div class="quantity-control">
+                    <button
+                      type="button"
+                      class="quantity-control__button"
+                      [disabled]="item.quantity <= 1"
+                      [attr.aria-label]="'Decrease quantity of ' + item.name"
+                      (click)="decreaseQuantity(item.id)"
+                    >
+                      −
+                    </button>
+
+                    <span class="quantity-control__value">
+                      {{ item.quantity }}
+                    </span>
+
+                    <button
+                      type="button"
+                      class="quantity-control__button"
+                      [disabled]="item.quantity >= item.stock"
+                      [attr.aria-label]="'Increase quantity of ' + item.name"
+                      (click)="increaseQuantity(item.id)"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="cart-item__remove-button"
+                  (click)="removeItem(item.id)"
+                >
+                  Remove
+                </button>
+              </div>
+
+              <div class="cart-item__total">
+                <span>Item Total</span>
+                <strong>
+                  {{ formatPrice(getItemTotal(item.price, item.quantity)) }}
+                </strong>
+              </div>
+
+            </article>
+          }
+
+        </div>
+
+        <aside class="cart-summary">
+
+          <h2 class="cart-summary__title">Order Summary</h2>
+
+          <div class="cart-summary__row">
+            <span>Total Items</span>
+            <span>{{ cartCount() }}</span>
+          </div>
+
+          <div class="cart-summary__row">
+            <span>Subtotal</span>
+            <span>{{ formatPrice(cartSubtotal()) }}</span>
+          </div>
+
+          <div class="cart-summary__divider"></div>
+
+          <div class="cart-summary__total">
+            <span>Order Total</span>
+            <strong>{{ formatPrice(cartSubtotal()) }}</strong>
+          </div>
+
+          <p class="cart-summary__note">
+            Shipping and any applicable taxes are not included in this demo.
+          </p>
+
+          <button
+            type="button"
+            class="cart-summary__checkout-button"
+            (click)="checkout()"
+          >
+            Proceed to Checkout
+          </button>
+
+          <a
+            routerLink="/products"
+            class="cart-summary__continue-link"
+          >
+            Continue Shopping
+          </a>
+
+        </aside>
+
+      </div>
+
+    } @else {
+
+      <div class="cart-empty-state">
+
+        <div class="cart-empty-state__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path
+              d="M3 3h2l2.2 11.2a2 2 0 0 0 2 1.6h7.5a2 2 0 0 0 1.9-1.5L21 8H6"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <circle cx="10" cy="19" r="1.3" fill="currentColor" />
+            <circle cx="18" cy="19" r="1.3" fill="currentColor" />
+          </svg>
+        </div>
+
+        <h2>Your Cart Is Empty</h2>
+
+        <p>
+          You haven't added any products to your cart yet.
+          Explore our products and find something you love.
+        </p>
+
+        <a routerLink="/products" class="cart-empty-state__button">
+          Browse Products
+        </a>
+
+      </div>
+
+    }
+
+  </section>
+</div>

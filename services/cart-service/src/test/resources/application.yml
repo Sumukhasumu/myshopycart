@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    config:
+      enabled: false
+
+  datasource:
+    url: jdbc:postgresql://host.docker.internal:5432/myshopycart_cart
+    username: postgres
+    password: postgres
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+eureka:
+  client:
+    enabled: false
+
+myshopycart:
+  auth:
+    jwt-secret: "myshopycart-phase4-jwt-secret-key-change-this-later"

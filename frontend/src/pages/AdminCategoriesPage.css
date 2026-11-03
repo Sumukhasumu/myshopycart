@@ -1,0 +1,223 @@
+
+.admin-categories {
+  display: grid;
+  gap: 24px;
+  padding: 8px 0 32px;
+  color: #1f2937;
+}
+
+.admin-categories__header {
+  padding: 28px;
+  border: 1px solid #dbeafe;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 70%);
+}
+
+.admin-categories__eyebrow {
+  margin: 0 0 8px;
+  color: #1d4ed8;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+}
+
+.admin-categories__header h1 {
+  margin: 0;
+  font-size: clamp(1.7rem, 4vw, 2.3rem);
+  line-height: 1.2;
+}
+
+.admin-categories__header > p:last-child {
+  max-width: 680px;
+  margin: 12px 0 0;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.admin-categories__panel {
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 4px 16px rgb(15 23 42 / 4%);
+}
+
+.admin-categories__panel h2 {
+  margin: 0 0 20px;
+  font-size: 1.25rem;
+}
+
+.admin-categories__form {
+  display: grid;
+  gap: 18px;
+  max-width: 760px;
+}
+
+.admin-categories__field {
+  display: grid;
+  gap: 7px;
+}
+
+.admin-categories__field label {
+  color: #334155;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.admin-categories__field input,
+.admin-categories__field textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 11px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #0f172a;
+  font: inherit;
+}
+
+.admin-categories__field input:focus,
+.admin-categories__field textarea:focus {
+  border-color: #2563eb;
+  outline: 3px solid rgb(37 99 235 / 16%);
+}
+
+.admin-categories__field textarea {
+  resize: vertical;
+}
+
+.admin-categories__actions,
+.admin-categories__row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-categories__actions button,
+.admin-categories__row-actions button {
+  min-height: 38px;
+  padding: 9px 14px;
+  border: 1px solid #1d4ed8;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-categories__actions button:hover:not(:disabled),
+.admin-categories__row-actions button:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.admin-categories__actions button:focus-visible,
+.admin-categories__row-actions button:focus-visible {
+  outline: 3px solid rgb(37 99 235 / 30%);
+  outline-offset: 2px;
+}
+
+.admin-categories__actions button:disabled,
+.admin-categories__row-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.admin-categories__actions .admin-categories__button--secondary {
+  border-color: #cbd5e1;
+  background: #ffffff;
+  color: #334155;
+}
+
+.admin-categories__actions .admin-categories__button--secondary:hover:not(:disabled) {
+  background: #f1f5f9;
+}
+
+.admin-categories__row-actions .admin-categories__button--danger {
+  border-color: #b91c1c;
+  background: #dc2626;
+}
+
+.admin-categories__row-actions .admin-categories__button--danger:hover:not(:disabled) {
+  background: #b91c1c;
+}
+
+.admin-categories__alert {
+  padding: 12px 16px;
+  border: 1px solid;
+  border-radius: 8px;
+  line-height: 1.5;
+}
+
+.admin-categories__alert--error {
+  border-color: #fecaca;
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+.admin-categories__alert--success {
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+  color: #166534;
+}
+
+.admin-categories__table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.admin-categories__table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.admin-categories__table th,
+.admin-categories__table td {
+  padding: 13px 12px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.admin-categories__table th {
+  background: #f8fafc;
+  color: #334155;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.admin-categories__table td {
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.admin-categories__table tbody tr:hover {
+  background: #f8fafc;
+}
+
+@media (max-width: 640px) {
+  .admin-categories {
+    gap: 16px;
+  }
+
+  .admin-categories__header,
+  .admin-categories__panel {
+    padding: 18px;
+    border-radius: 12px;
+  }
+
+  .admin-categories__table th,
+  .admin-categories__table td {
+    padding: 10px 8px;
+  }
+
+  .admin-categories__row-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

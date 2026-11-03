@@ -1,0 +1,272 @@
+
+<div class="order-details-page">
+  <div class="order-details-container">
+
+    @if (!hasOrder()) {
+      <section class="order-details-card order-details-error">
+        <h1>Order Not Found</h1>
+        <p>
+          We could not find this demo order. It may not exist in the
+          current browser session.
+        </p>
+        <a routerLink="/orders" class="order-details-back-link">
+          Back to My Orders
+        </a>
+      </section>
+    } @else {
+      <nav class="order-details-breadcrumb" aria-label="Breadcrumb">
+        <a routerLink="/orders">Your Orders</a>
+        <span aria-hidden="true">/</span>
+        <span>Order #{{ order!.id }}</span>
+      </nav>
+
+      <header class="order-details-header">
+        <div>
+          <p class="order-details-eyebrow">MYSHOPYCART</p>
+          <h1>Order Details</h1>
+          <p class="order-details-description">
+            Review your order, items, invoice and order status.
+          </p>
+        </div>
+
+        <a routerLink="/orders" class="order-details-back-link">
+          Back to Orders
+        </a>
+      </header>
+
+      <section class="order-details-card">
+        <div class="order-details-card-header">
+          <div>
+            <span class="order-details-label">Order Number</span>
+            <h2>{{ order!.id }}</h2>
+          </div>
+
+          <span
+            class="order-status"
+            [class.order-status--created]="order!.status === 'CREATED'"
+            [class.order-status--confirmed]="order!.status === 'CONFIRMED'"
+            [class.order-status--processing]="order!.status === 'PROCESSING'"
+            [class.order-status--shipped]="order!.status === 'SHIPPED'"
+            [class.order-status--delivered]="order!.status === 'DELIVERED'"
+            [class.order-status--cancelled]="order!.status === 'CANCELLED'"
+          >
+            {{ order!.status }}
+          </span>
+        </div>
+
+        <div class="order-details-metadata">
+          <div>
+            <span class="order-details-label">Order Date</span>
+            <strong>{{ formatDate(order!.createdAt) }}</strong>
+          </div>
+
+          <div>
+            <span class="order-details-label">Last Updated</span>
+            <strong>{{ formatDate(order!.updatedAt) }}</strong>
+          </div>
+        </div>
+
+        @if (hasInvoice()) {
+          <div class="order-details-invoice-action">
+            <button
+              type="button"
+              class="order-details-invoice-button"
+              (click)="downloadInvoice()"
+            >
+              Download Invoice (PDF)
+            </button>
+            <span class="order-details-invoice-message">
+              Select Save as PDF in the browser print dialog.
+            </span>
+          </div>
+        } @else {
+          <p class="order-details-muted">
+            Invoice is not available for this order.
+            A successful payment is required to generate a demo invoice.
+          </p>
+        }
+      </section>
+
+      @if (hasInvoice()) {
+        <section class="order-details-card order-details-invoice">
+          <div class="order-details-section-header">
+            <h2>Invoice Details</h2>
+            <span>Demo Invoice</span>
+          </div>
+
+          <div class="order-details-invoice-metadata">
+            <div>
+              <span class="order-details-label">Invoice Number</span>
+              <strong>{{ invoice()!.invoiceNumber }}</strong>
+            </div>
+
+            <div>
+              <span class="order-details-label">Invoice Date</span>
+              <strong>{{ formatDate(invoice()!.issueDate) }}</strong>
+            </div>
+
+            <div>
+              <span class="order-details-label">Payment Method</span>
+              <strong>{{ paymentMethodLabel() }}</strong>
+            </div>
+          </div>
+
+          <div class="order-details-address-grid">
+            <div>
+              <h3>Billing Address</h3>
+              @for (line of getAddressLines(invoice()!.billingAddress); track $index) {
+                <p>{{ line }}</p>
+              }
+            </div>
+
+            <div>
+              <h3>Shipping Address</h3>
+              @for (line of getAddressLines(invoice()!.shippingAddress); track $index) {
+                <p>{{ line }}</p>
+              }
+            </div>
+          </div>
+
+          <div class="order-details-customer">
+            <h3>Invoice Customer Information</h3>
+            <div class="order-details-customer-grid">
+              <div>
+                <span class="order-details-label">Name</span>
+                <strong>{{ invoice()!.customer.name }}</strong>
+              </div>
+
+              <div>
+                <span class="order-details-label">Email</span>
+                <strong>{{ invoice()!.customer.email }}</strong>
+              </div>
+
+              <div>
+                <span class="order-details-label">Phone</span>
+                <strong>{{ invoice()!.customer.phone }}</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="order-details-invoice-items">
+            <h3>Invoice Items</h3>
+
+            @for (item of invoice()!.items; track item.productId) {
+              <div class="order-details-item">
+                <div class="order-details-item-info">
+                  <h4>{{ item.productName }}</h4>
+                  <p>Product ID: {{ item.productId }}</p>
+                  <p>Unit Price: {{ formatPrice(item.unitPrice) }}</p>
+                  <p>Quantity: {{ item.quantity }}</p>
+                </div>
+
+                <div class="order-details-item-total">
+                  <span>Line Total</span>
+                  <strong>{{ formatPrice(item.lineTotal) }}</strong>
+                </div>
+              </div>
+            }
+          </div>
+
+          <div class="order-details-invoice-totals">
+            <div>
+              <span>Subtotal</span>
+              <strong>{{ formatPrice(invoice()!.subtotal) }}</strong>
+            </div>
+
+            <div>
+              <span>Tax</span>
+              <strong>{{ formatPrice(invoice()!.taxAmount) }}</strong>
+            </div>
+
+            <div class="order-details-invoice-grand-total">
+              <span>Total Amount</span>
+              <strong>{{ formatPrice(invoice()!.totalAmount) }}</strong>
+            </div>
+          </div>
+        </section>
+      }
+
+      <div class="order-details-layout">
+        <section class="order-details-card">
+          <div class="order-details-section-header">
+            <h2>Items in This Order</h2>
+            <span>{{ totalQuantity() }} item(s)</span>
+          </div>
+
+          <div class="order-details-items">
+            @for (item of order!.items; track item.productId) {
+              <div class="order-details-item">
+                <div class="order-details-item-info">
+                  <h3>{{ item.productName }}</h3>
+                  <p>Product ID: {{ item.productId }}</p>
+                  <p>Quantity: {{ item.quantity }}</p>
+                </div>
+
+                <div class="order-details-item-total">
+                  <span>{{ formatPrice(item.price) }} each</span>
+                  <strong>
+                    {{ formatPrice(getLineTotal(item.price, item.quantity)) }}
+                  </strong>
+                </div>
+              </div>
+            }
+          </div>
+        </section>
+
+        <aside class="order-details-card order-details-summary">
+          <h2>Order Summary</h2>
+
+          <div class="order-details-summary-row">
+            <span>Total Items</span>
+            <strong>{{ order!.items.length }}</strong>
+          </div>
+
+          <div class="order-details-summary-row">
+            <span>Total Quantity</span>
+            <strong>{{ totalQuantity() }}</strong>
+          </div>
+
+          <div class="order-details-summary-row">
+            <span>Shipping</span>
+            <strong>Free</strong>
+          </div>
+
+          <div class="order-details-summary-total">
+            <span>Order Total</span>
+            <strong>{{ formatPrice(order!.totalAmount) }}</strong>
+          </div>
+
+          <p class="order-details-summary-note">
+            Total amount recorded in this demo order.
+          </p>
+        </aside>
+      </div>
+
+      <section class="order-details-card order-details-customer">
+        <h2>Customer Information</h2>
+
+        <div class="order-details-customer-grid">
+          <div>
+            <span class="order-details-label">Full Name</span>
+            <strong>{{ order!.customer.fullName }}</strong>
+          </div>
+
+          <div>
+            <span class="order-details-label">Mobile</span>
+            <strong>{{ order!.customer.phone }}</strong>
+          </div>
+
+          <div>
+            <span class="order-details-label">Payment Method</span>
+            <strong>{{ paymentMethodLabel() }}</strong>
+          </div>
+        </div>
+      </section>
+
+      <footer class="order-details-footer">
+        <a routerLink="/orders">Back to Order History</a>
+      </footer>
+    }
+
+  </div>
+</div>

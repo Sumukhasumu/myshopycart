@@ -1,0 +1,330 @@
+
+<main class="distributor-inventory">
+  <header class="distributor-inventory__header">
+    <p class="distributor-inventory__eyebrow">
+      MYSHOPYCART PARTNER PORTAL
+    </p>
+
+    <h1>Inventory Operations</h1>
+
+    <p>
+      View your inventory, initialize stock, adjust stock levels,
+      and review inventory transactions.
+    </p>
+  </header>
+
+  @if (error()) {
+    <div
+      class="distributor-inventory__alert distributor-inventory__alert--error"
+      role="alert"
+    >
+      {{ error() }}
+    </div>
+  }
+
+  @if (message()) {
+    <div
+      class="distributor-inventory__alert distributor-inventory__alert--success"
+      role="status"
+    >
+      {{ message() }}
+    </div>
+  }
+
+  <section
+    class="distributor-inventory__section"
+    aria-labelledby="inventory-list-title"
+  >
+    <h2 id="inventory-list-title">My Inventory</h2>
+
+    @if (inventory().length === 0) {
+      <p class="distributor-inventory__empty">
+        No inventory records were returned for your account.
+      </p>
+    } @else {
+      <div class="distributor-inventory__table-wrap">
+        <table class="distributor-inventory__table">
+          <thead>
+            <tr>
+              <th>Product ID</th>
+              <th>Available Stock</th>
+              <th>Reserved Stock</th>
+              <th>Total Stock</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @for (item of inventory(); track item.id) {
+              <tr>
+                <td>{{ item.productId }}</td>
+                <td>{{ item.availableStock }}</td>
+                <td>{{ item.reservedStock }}</td>
+                <td>{{ item.availableStock + item.reservedStock }}</td>
+                <td>
+                  <button
+                    type="button"
+                    class="distributor-inventory__action"
+                    (click)="viewHistory(item.productId)"
+                  >
+                    View History
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+
+    <p class="distributor-inventory__note">
+      Total Stock = Available Stock + Reserved Stock.
+      Reserved Stock is managed automatically and cannot be
+      manually adjusted.
+    </p>
+  </section>
+
+  <div class="distributor-inventory__forms">
+    <section class="distributor-inventory__section">
+      <h2>Initialize Inventory</h2>
+
+      <p>
+        Create an inventory record for a product
+        associated with your account.
+      </p>
+
+      @if (productsWithoutInventory().length === 0) {
+        <p class="distributor-inventory__empty">
+          No products without inventory were found.
+        </p>
+      } @else {
+        <form (ngSubmit)="createInventory()">
+          <label for="initial-product">Product</label>
+
+          <select
+            id="initial-product"
+            name="selectedProductId"
+            [(ngModel)]="selectedProductId"
+            required
+          >
+            <option value="">Select a product</option>
+
+            @for (product of productsWithoutInventory(); track product.id) {
+              <option [value]="product.id">
+                {{ product.name || product.id }} — ID: {{ product.id }}
+              </option>
+            }
+          </select>
+
+          <label for="initial-stock">
+            Initial Available Stock
+          </label>
+
+          <input
+            id="initial-stock"
+            name="initialStock"
+            type="number"
+            min="0"
+            step="1"
+            [(ngModel)]="initialStock"
+            required
+          />
+
+          <button type="submit" [disabled]="submitting()">
+            {{ submitting() ? 'Please wait...' : 'Initialize Inventory' }}
+          </button>
+        </form>
+      }
+    </section>
+
+    <section class="distributor-inventory__section">
+      <h2>Add Stock</h2>
+
+      <p>
+        Increase available stock for an existing inventory record.
+      </p>
+
+      @if (inventory().length === 0) {
+        <p class="distributor-inventory__empty">
+          Initialize inventory before adding stock.
+        </p>
+      } @else {
+        <form (ngSubmit)="addStock()">
+          <label for="stock-product">Inventory Product</label>
+
+          <select
+            id="stock-product"
+            name="stockProductId"
+            [(ngModel)]="stockProductId"
+            required
+          >
+            <option value="">Select a product</option>
+
+            @for (item of inventory(); track item.id) {
+              <option [value]="item.productId">
+                Product {{ item.productId }} — Available:
+                {{ item.availableStock }}
+              </option>
+            }
+          </select>
+
+          <label for="additional-stock">Quantity to Add</label>
+
+          <input
+            id="additional-stock"
+            name="additionalStock"
+            type="number"
+            min="1"
+            step="1"
+            [(ngModel)]="additionalStock"
+            required
+          />
+
+          <button type="submit" [disabled]="submitting()">
+            {{ submitting() ? 'Please wait...' : 'Add Stock' }}
+          </button>
+        </form>
+      }
+    </section>
+
+    <section class="distributor-inventory__section">
+      <h2>Adjust Stock</h2>
+
+      <p>
+        Increase or decrease available stock. A reason is required
+        for every adjustment.
+      </p>
+
+      @if (inventory().length === 0) {
+        <p class="distributor-inventory__empty">
+          Initialize inventory before adjusting stock.
+        </p>
+      } @else {
+        <form (ngSubmit)="adjustStock()">
+          <label for="adjust-product">Inventory Product</label>
+
+          <select
+            id="adjust-product"
+            name="adjustmentProductId"
+            [(ngModel)]="adjustmentProductId"
+            required
+          >
+            <option value="">Select a product</option>
+
+            @for (item of inventory(); track item.id) {
+              <option [value]="item.productId">
+                Product {{ item.productId }} — Available:
+                {{ item.availableStock }}
+              </option>
+            }
+          </select>
+
+          <label for="adjust-operation">Adjustment Type</label>
+
+          <select
+            id="adjust-operation"
+            name="adjustmentType"
+            [(ngModel)]="adjustmentType"
+            required
+          >
+            <option value="INCREASE">Increase Stock</option>
+            <option value="DECREASE">Decrease Stock</option>
+          </select>
+
+          <label for="adjust-quantity">Quantity</label>
+
+          <input
+            id="adjust-quantity"
+            name="adjustmentQuantity"
+            type="number"
+            min="1"
+            step="1"
+            [(ngModel)]="adjustmentQuantity"
+            required
+          />
+
+          <label for="adjust-reason">Adjustment Reason</label>
+
+          <textarea
+            id="adjust-reason"
+            name="adjustmentReason"
+            rows="3"
+            maxlength="500"
+            [(ngModel)]="adjustmentReason"
+            placeholder="Enter the reason for this adjustment"
+            required
+          ></textarea>
+
+          <button type="submit" [disabled]="submitting()">
+            {{ submitting() ? 'Please wait...' : 'Adjust Stock' }}
+          </button>
+        </form>
+      }
+    </section>
+  </div>
+
+  @if (historyProductId() !== null) {
+    <section
+      class="distributor-inventory__section distributor-inventory__history"
+      aria-labelledby="inventory-history-title"
+    >
+      <div class="distributor-inventory__history-header">
+        <div>
+          <h2 id="inventory-history-title">Inventory History</h2>
+          <p>Product ID: {{ historyProductId() }}</p>
+        </div>
+
+        <button
+          type="button"
+          class="distributor-inventory__close"
+          (click)="closeHistory()"
+        >
+          Close History
+        </button>
+      </div>
+
+      @if (history().length === 0) {
+        <p class="distributor-inventory__empty">
+          No transaction history was found for this product.
+        </p>
+      } @else {
+        <div class="distributor-inventory__table-wrap">
+          <table class="distributor-inventory__table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Transaction Type</th>
+                <th>Quantity</th>
+                <th>Previous Available</th>
+                <th>New Available</th>
+                <th>Reason</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (transaction of history(); track transaction.id) {
+                <tr>
+                  <td>{{ transaction.createdAt | date:'medium' }}</td>
+                  <td>{{ transaction.transactionType }}</td>
+                  <td>{{ transaction.quantity }}</td>
+                  <td>{{ transaction.previousAvailableStock }}</td>
+                  <td>{{ transaction.newAvailableStock }}</td>
+                  <td>{{ transaction.reason }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </section>
+  }
+
+  <button
+    type="button"
+    class="distributor-inventory__refresh"
+    (click)="refreshInventory()"
+    [disabled]="submitting()"
+  >
+    Refresh Inventory
+  </button>
+</main>

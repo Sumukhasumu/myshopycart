@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <rect width="800" height="600" rx="32" fill="#f8fafc"/>
+  <rect x="175" y="105" width="450" height="300" rx="20" fill="#334155"/>
+  <rect x="195" y="125" width="410" height="260" rx="10" fill="#e0f2fe"/>
+  <rect x="225" y="155" width="350" height="200" rx="8" fill="#ffffff"/>
+  <circle cx="400" cy="245" r="42" fill="#0ea5e9"/>
+  <text x="400" y="258" text-anchor="middle"
+        font-family="Arial, sans-serif"
+        font-size="34" font-weight="700"
+        fill="#ffffff">HP</text>
+  <path d="M105 425h590l-55 45H160z" fill="#475569"/>
+  <path d="M180 425h440l-30 25H210z" fill="#cbd5e1"/>
+  <text x="400" y="530" text-anchor="middle"
+        font-family="Arial, sans-serif"
+        font-size="34" font-weight="700"
+        fill="#1e293b">MYSHOPYCART • LAPTOP</text>
+</svg>

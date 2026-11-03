@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: inventory-service
+
+  cloud:
+    config:
+      enabled: false
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/myshopycart_inventory
+    username: postgres
+    password: postgres
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8083
+
+eureka:
+  client:
+    enabled: true
+  instance:
+    prefer-ip-address: true
+
+myshopycart:
+  auth:
+    jwt-secret: myshopycart-phase4-jwt-secret-key-change-this-later
+  inventory:
+    internal-token: ${INVENTORY_SERVICE_INTERNAL_TOKEN:}

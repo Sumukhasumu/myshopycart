@@ -1,0 +1,53 @@
+
+spring:
+  cloud:
+    config:
+      enabled: false
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/myshopycart_order_test
+    username: test
+    password: test
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  sql:
+    init:
+      mode: never
+
+server:
+  port: 0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+cart-service:
+  base-url: http://localhost:8084
+
+inventory-service:
+  base-url: http://localhost:8083
+
+product-service:
+  base-url: http://localhost:8082
+
+auth-service:
+  base-url: http://localhost:8081
+
+payment-service:
+  base-url: http://localhost:8085
+
+minio:
+  endpoint: http://localhost:9100
+  access-key: myshopycart
+  secret-key: myshopycart
+  bucket: myshopycart-invoices

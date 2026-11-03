@@ -1,0 +1,19 @@
+server:
+  port: 8082
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/myshopycart_product
+
+    redis:
+      host: localhost
+      port: 6379
+
+myshopycart:
+  product:
+    message: "Product Service configuration loaded from Config Server"
+    service-name: "product-service"
+
+  auth:
+    jwt-secret: "myshopycart-phase4-jwt-secret-key-change-this-later"

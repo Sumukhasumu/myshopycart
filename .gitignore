@@ -48,3 +48,19 @@ pnpm-debug.log*
 # Temporary files
 *.tmp
 *.temp
+
+# Independent MinIO source repository - keep locally, exclude from MYSHOPYCART
+/minio-community/
+
+# Angular generated cache and test coverage
+.angular/
+coverage/
+
+# Temporary Maven dependency audit output
+/testcontainers-dependencies.txt
+
+# Kubernetes - keep locally, do not commit
+/infrastructure/kubernetes/
+
+/testcontainers-dependencies.txt
+/infrastructure/kubernetes/

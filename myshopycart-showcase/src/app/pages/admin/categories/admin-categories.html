@@ -1,0 +1,170 @@
+
+<section class="admin-categories">
+  <header class="admin-categories__header">
+    <p class="admin-categories__eyebrow">
+      MYSHOPYCART ADMINISTRATION
+    </p>
+
+    <h1>Category Management</h1>
+
+    <p>
+      Create and maintain the categories used to organize
+      products in the catalogue.
+    </p>
+  </header>
+
+  @if (error()) {
+    <div
+      class="admin-categories__alert admin-categories__alert--error"
+      role="alert"
+    >
+      {{ error() }}
+    </div>
+  }
+
+  @if (message()) {
+    <div
+      class="admin-categories__alert admin-categories__alert--success"
+      role="status"
+    >
+      {{ message() }}
+    </div>
+  }
+
+  <section class="admin-categories__panel">
+    <h2>{{ editingId() ? 'Edit Category' : 'Add Category' }}</h2>
+
+    <form
+      class="admin-categories__form"
+      (submit)="handleSubmit($event)"
+    >
+      <div class="admin-categories__field">
+        <label for="category-name">Category Name *</label>
+
+        <input
+          id="category-name"
+          name="name"
+          [ngModel]="form().name"
+          (ngModelChange)="updateField('name', $event)"
+          maxlength="150"
+          required
+          [disabled]="saving()"
+          placeholder="Enter category name"
+        />
+      </div>
+
+      <div class="admin-categories__field">
+        <label for="category-description">Description</label>
+
+        <textarea
+          id="category-description"
+          name="description"
+          [ngModel]="form().description"
+          (ngModelChange)="updateField('description', $event)"
+          rows="3"
+          maxlength="1000"
+          [disabled]="saving()"
+          placeholder="Enter an optional description"
+        ></textarea>
+      </div>
+
+      <div class="admin-categories__field">
+        <label for="category-parent">
+          Parent Category ID (optional)
+        </label>
+
+        <input
+          id="category-parent"
+          name="parentCategoryId"
+          [ngModel]="form().parentCategoryId"
+          (ngModelChange)="updateField('parentCategoryId', $event)"
+          [disabled]="saving()"
+          placeholder="Enter parent category ID, if applicable"
+        />
+      </div>
+
+      <div class="admin-categories__actions">
+        <button type="submit" [disabled]="saving()">
+          @if (saving()) {
+            Saving...
+          } @else if (editingId()) {
+            Update Category
+          } @else {
+            Create Category
+          }
+        </button>
+
+        @if (editingId()) {
+          <button
+            type="button"
+            class="admin-categories__button--secondary"
+            (click)="resetForm()"
+            [disabled]="saving()"
+          >
+            Cancel Edit
+          </button>
+        }
+      </div>
+    </form>
+  </section>
+
+  <section class="admin-categories__panel">
+    <h2>Existing Categories</h2>
+
+    @if (loading()) {
+      <p role="status">Loading categories...</p>
+    } @else if (categories().length === 0) {
+      <p>No categories found.</p>
+    } @else {
+      <div class="admin-categories__table-wrapper">
+        <table class="admin-categories__table">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">Parent Category</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @for (category of categories(); track category.id) {
+              <tr>
+                <td>{{ category.name }}</td>
+
+                <td>{{ category.description || '—' }}</td>
+
+                <td>{{ category.parentCategoryId || '—' }}</td>
+
+                <td>
+                  <div class="admin-categories__row-actions">
+                    <button
+                      type="button"
+                      (click)="handleEdit(category)"
+                      [disabled]="saving() || deletingId() !== null"
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      type="button"
+                      class="admin-categories__button--danger"
+                      (click)="handleDelete(category)"
+                      [disabled]="saving() || deletingId() !== null"
+                    >
+                      @if (deletingId() === category.id) {
+                        Deleting...
+                      } @else {
+                        Delete
+                      }
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </section>
+</section>

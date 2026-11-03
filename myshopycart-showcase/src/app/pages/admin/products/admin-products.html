@@ -1,0 +1,278 @@
+
+<section class="admin-products">
+  <header class="admin-products__header">
+    <div>
+      <p class="admin-products__eyebrow">MYSHOPYCART ADMINISTRATION</p>
+      <h1>Manage Products</h1>
+      <p>
+        Create products, update product details, remove products,
+        and manage the product catalogue.
+      </p>
+    </div>
+
+    <a routerLink="/admin/dashboard" class="admin-products__back-link">
+      Back to Dashboard
+    </a>
+  </header>
+
+  <section class="admin-products__form-panel">
+    <div class="admin-products__section-heading">
+      <h2>{{ editingId() ? 'Edit Product' : 'Create Product' }}</h2>
+      @if (editingId()) {
+        <button
+          type="button"
+          class="admin-products__secondary-button"
+          (click)="resetForm()"
+        >
+          Cancel Editing
+        </button>
+      }
+    </div>
+
+    <form class="admin-products__form" (ngSubmit)="handleSubmit()">
+      <div class="admin-products__form-grid">
+        <div class="admin-products__field">
+          <label for="product-name">Product Name</label>
+          <input
+            id="product-name"
+            type="text"
+            maxlength="150"
+            [ngModel]="form.name"
+            (ngModelChange)="updateField('name', $event)"
+            name="name"
+            placeholder="Enter product name"
+            required
+          />
+        </div>
+
+        <div class="admin-products__field">
+          <label for="product-price">Price (₹)</label>
+          <input
+            id="product-price"
+            type="number"
+            min="0.01"
+            step="0.01"
+            [ngModel]="form.price"
+            (ngModelChange)="updateField('price', $event)"
+            name="price"
+            placeholder="Enter product price"
+            required
+          />
+        </div>
+
+        <div class="admin-products__field">
+          <label for="product-category">Category</label>
+          <select
+            id="product-category"
+            [ngModel]="form.categoryId"
+            (ngModelChange)="updateField('categoryId', $event)"
+            name="categoryId"
+            required
+          >
+            <option value="">Select a category</option>
+            @for (category of categories(); track category.id) {
+              <option [value]="category.id">{{ category.name }}</option>
+            }
+          </select>
+        </div>
+
+        @if (!editingId()) {
+          <div class="admin-products__field">
+            <label for="product-distributor">Distributor ID</label>
+            <input
+              id="product-distributor"
+              type="text"
+              [ngModel]="form.distributorId"
+              (ngModelChange)="updateField('distributorId', $event)"
+              name="distributorId"
+              placeholder="Enter distributor ID"
+              required
+            />
+          </div>
+        }
+
+        <div class="admin-products__field admin-products__field--full">
+          <label for="product-description">Description</label>
+          <textarea
+            id="product-description"
+            rows="4"
+            maxlength="1000"
+            [ngModel]="form.description"
+            (ngModelChange)="updateField('description', $event)"
+            name="description"
+            placeholder="Enter product description"
+            required
+          ></textarea>
+        </div>
+
+        <div class="admin-products__field admin-products__field--full">
+          <label for="product-attributes">Product Attributes (JSON)</label>
+          <textarea
+            id="product-attributes"
+            rows="5"
+            [ngModel]="form.attributesJson"
+            (ngModelChange)="updateField('attributesJson', $event)"
+            name="attributesJson"
+            placeholder='{"Brand":"Example","Color":"Black"}'
+          ></textarea>
+          <small>Enter product attributes as a valid JSON object.</small>
+        </div>
+
+        <div class="admin-products__field admin-products__field--full">
+          <label for="product-images">Image URLs</label>
+          <textarea
+            id="product-images"
+            rows="4"
+            [ngModel]="form.imageUrlsText"
+            (ngModelChange)="updateField('imageUrlsText', $event)"
+            name="imageUrlsText"
+            placeholder="Enter one image URL per line"
+          ></textarea>
+          <small>Enter each image URL on a separate line.</small>
+        </div>
+      </div>
+
+      @if (error()) {
+        <div class="admin-products__alert admin-products__alert--error" role="alert">
+          {{ error() }}
+        </div>
+      }
+
+      @if (message()) {
+        <div class="admin-products__alert admin-products__alert--success" role="status">
+          {{ message() }}
+        </div>
+      }
+
+      <div class="admin-products__form-actions">
+        <button
+          type="submit"
+          class="admin-products__primary-button"
+          [disabled]="saving()"
+        >
+          {{
+            saving()
+              ? 'Saving...'
+              : editingId()
+                ? 'Update Product'
+                : 'Create Product'
+          }}
+        </button>
+
+        <button
+          type="button"
+          class="admin-products__secondary-button"
+          (click)="resetForm()"
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <section class="admin-products__listing">
+    <div class="admin-products__section-heading">
+      <div>
+        <h2>Product Catalogue</h2>
+        <p>{{ totalElements() }} product(s) available</p>
+      </div>
+    </div>
+
+    @if (loading()) {
+      <p class="admin-products__status">Loading products...</p>
+    } @else if (products().length === 0) {
+      <div class="admin-products__empty">
+        <h3>No products found</h3>
+        <p>Create a product to add it to the catalogue.</p>
+      </div>
+    } @else {
+      <div class="admin-products__grid">
+        @for (product of paginatedProducts(); track product.id) {
+          <article class="admin-products__card">
+            @if (product.image) {
+              <img
+                class="admin-products__image"
+                [src]="product.image"
+                [alt]="product.name"
+              />
+            } @else {
+              <div class="admin-products__image-placeholder">
+                No image available
+              </div>
+            }
+
+            <div class="admin-products__card-content">
+              <h3>{{ product.name }}</h3>
+
+              <p class="admin-products__price">
+                {{ formatPrice(product.price) }}
+              </p>
+
+              <p class="admin-products__category">
+                {{ product.categoryName }}
+              </p>
+
+              <p class="admin-products__description">
+                {{ product.description }}
+              </p>
+
+              <p class="admin-products__meta">
+                Distributor: {{ product.distributorId || 'Not assigned' }}
+              </p>
+
+              <div class="admin-products__card-actions">
+                <button
+                  type="button"
+                  class="admin-products__secondary-button"
+                  (click)="handleEdit(product)"
+                >
+                  Edit
+                </button>
+
+                <button
+                  type="button"
+                  class="admin-products__delete-button"
+                  [disabled]="deletingId() === product.id"
+                  (click)="handleDelete(product)"
+                >
+                  {{ deletingId() === product.id ? 'Deleting...' : 'Delete' }}
+                </button>
+
+                <a
+                  class="admin-products__view-link"
+                  [routerLink]="['/products', product.id]"
+                >
+                  View
+                </a>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+
+      @if (totalPages() > 1) {
+        <nav class="admin-products__pagination" aria-label="Product pages">
+          <button
+            type="button"
+            [disabled]="currentPage() === 1"
+            (click)="goToPage(currentPage() - 1)"
+          >
+            Previous
+          </button>
+
+          <span>
+            Page {{ currentPage() }} of {{ totalPages() }}
+          </span>
+
+          <button
+            type="button"
+            [disabled]="currentPage() === totalPages()"
+            (click)="goToPage(currentPage() + 1)"
+          >
+            Next
+          </button>
+        </nav>
+      }
+    }
+  </section>
+</section>

@@ -1,0 +1,141 @@
+
+.profile-page {
+  min-height: 70vh;
+  padding: 3rem 0 4rem;
+  background: var(--color-background);
+}
+
+.profile-page-header {
+  margin-bottom: 2rem;
+}
+
+.profile-page-eyebrow {
+  margin: 0 0 0.5rem;
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.profile-page-header h1 {
+  margin: 0;
+  color: var(--color-heading);
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.profile-page-description {
+  max-width: 680px;
+  margin: 0.75rem 0 0;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.profile-card {
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background: var(--color-white);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 5%);
+}
+
+.profile-card-header {
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.profile-card-header h2 {
+  margin: 0;
+  color: var(--color-heading);
+  font-size: 1.35rem;
+}
+
+.profile-card-header p {
+  margin: 0.5rem 0 0;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.profile-details {
+  margin: 0;
+}
+
+.profile-detail-row {
+  display: grid;
+  grid-template-columns: minmax(140px, 0.7fr) minmax(0, 1.3fr);
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.profile-detail-row dt {
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.profile-detail-row dd {
+  min-width: 0;
+  margin: 0;
+  color: var(--color-heading);
+  overflow-wrap: anywhere;
+}
+
+.profile-notice,
+.profile-page-note {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.profile-notice {
+  padding: 0.85rem 1rem;
+  border-radius: 0.5rem;
+  background: var(--color-background-soft);
+}
+
+.profile-page-note {
+  margin: 1.25rem 0 0;
+}
+
+.profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.profile-actions a {
+  text-decoration: none;
+}
+
+.profile-actions a:focus-visible,
+.profile-actions button:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .profile-page {
+    padding: 2rem 0 3rem;
+  }
+
+  .profile-card {
+    padding: 1rem;
+    border-radius: 0.75rem;
+  }
+
+  .profile-detail-row {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  .profile-actions {
+    flex-direction: column;
+  }
+
+  .profile-actions > * {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+  }
+}

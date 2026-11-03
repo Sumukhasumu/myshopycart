@@ -1,0 +1,69 @@
+<svg
+  width="64"
+  height="64"
+  viewBox="0 0 64 64"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <rect
+    width="64"
+    height="64"
+    rx="16"
+    fill="#1769E0"
+  />
+
+  <!-- Shopping bag -->
+  <path
+    d="M19 25
+       C19 22.8 20.8 21 23 21
+       H41
+       C43.2 21 45 22.8 45 25
+       L42.5 44
+       C42.2 46.3 40.3 48 38 48
+       H26
+       C23.7 48 21.8 46.3 21.5 44
+       L19 25Z"
+    fill="#28B463"
+  />
+
+  <!-- Bag handle -->
+  <path
+    d="M25 22
+       V17
+       C25 12.6 28.1 9.5 32 9.5
+       C35.9 9.5 39 12.6 39 17
+       V22"
+    stroke="#FFFFFF"
+    stroke-width="4"
+    stroke-linecap="round"
+  />
+
+  <!-- Bag smile -->
+  <path
+    d="M27 31
+       C27 34.5 29 37 32 37
+       C35 37 37 34.5 37 31"
+    stroke="#FFFFFF"
+    stroke-width="3"
+    stroke-linecap="round"
+  />
+
+  <!-- Cart motion accent -->
+  <rect
+    x="8"
+    y="36"
+    width="9"
+    height="3"
+    rx="1.5"
+    fill="#FFFFFF"
+  />
+
+  <rect
+    x="11"
+    y="41"
+    width="6"
+    height="3"
+    rx="1.5"
+    fill="#FFFFFF"
+  />
+</svg>

@@ -1,0 +1,81 @@
+
+<section
+  class="settings-page"
+  aria-labelledby="settings-title"
+>
+  <header class="settings-page-header">
+    <p class="settings-page-eyebrow">
+      MYSHOPYCART ACCOUNT
+    </p>
+
+    <h1 id="settings-title">Settings</h1>
+
+    <p class="settings-page-description">
+      Manage your notification preferences.
+    </p>
+  </header>
+
+  <section
+    class="settings-card"
+    aria-labelledby="notification-settings-title"
+  >
+    <h2 id="notification-settings-title">
+      Notification preferences
+    </h2>
+
+    <p class="settings-card-description">
+      Choose which types of updates you would like to enable
+      in this page.
+    </p>
+
+    <div class="settings-option">
+      <div class="settings-option-copy">
+        <label for="orderUpdates">
+          Order updates
+        </label>
+
+        <p id="orderUpdates-description">
+          Enable preferences for order-related notifications.
+        </p>
+      </div>
+
+      <input
+        id="orderUpdates"
+        type="checkbox"
+        [checked]="orderUpdates()"
+        (change)="onOrderUpdatesChange($event)"
+        aria-describedby="orderUpdates-description"
+      />
+    </div>
+
+    <div class="settings-option">
+      <div class="settings-option-copy">
+        <label for="promotionalEmails">
+          Promotional emails
+        </label>
+
+        <p id="promotionalEmails-description">
+          Enable preferences for offers and promotional messages.
+        </p>
+      </div>
+
+      <input
+        id="promotionalEmails"
+        type="checkbox"
+        [checked]="promotionalEmails()"
+        (change)="onPromotionalEmailsChange($event)"
+        aria-describedby="promotionalEmails-description"
+      />
+    </div>
+
+    <p class="settings-page-note" role="status">
+      These are frontend-only preferences. They are not saved to
+      your account or retained after this page is reloaded.
+    </p>
+  </section>
+
+  <nav class="settings-page-actions" aria-label="Account navigation">
+    <a routerLink="/profile">Back to profile</a>
+    <a routerLink="/orders">View orders</a>
+  </nav>
+</section>

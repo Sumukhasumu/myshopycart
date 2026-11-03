@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <rect width="800" height="600" rx="32" fill="#f5f3ff"/>
+  <rect x="285" y="65" width="230" height="430" rx="32" fill="#1e293b"/>
+  <rect x="300" y="85" width="200" height="390" rx="22" fill="#dbeafe"/>
+  <rect x="320" y="120" width="160" height="280" rx="16" fill="#ffffff"/>
+  <circle cx="400" cy="445" r="12" fill="#94a3b8"/>
+  <circle cx="335" cy="105" r="8" fill="#475569"/>
+  <circle cx="400" cy="255" r="58" fill="#6366f1"/>
+  <path d="M365 255h70M400 220v70" stroke="#ffffff"
+        stroke-width="10" stroke-linecap="round"/>
+  <text x="400" y="550" text-anchor="middle"
+        font-family="Arial, sans-serif"
+        font-size="32" font-weight="700"
+        fill="#1e293b">MYSHOPYCART • MOBILE</text>
+</svg>

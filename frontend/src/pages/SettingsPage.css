@@ -1,0 +1,143 @@
+
+.settings-page {
+  min-height: 70vh;
+  padding: 3rem 0 4rem;
+  background: var(--color-background);
+}
+
+.settings-page-header {
+  margin-bottom: 2rem;
+}
+
+.settings-page-eyebrow {
+  margin: 0 0 0.5rem;
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.settings-page-header h1 {
+  margin: 0;
+  color: var(--color-heading);
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.settings-page-description {
+  max-width: 680px;
+  margin: 0.75rem 0 0;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.settings-card {
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background: var(--color-white);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 5%);
+}
+
+.settings-card h2 {
+  margin: 0;
+  color: var(--color-heading);
+  font-size: 1.35rem;
+}
+
+.settings-card-description {
+  margin: 0.5rem 0 1rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.settings-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.settings-option-copy {
+  min-width: 0;
+}
+
+.settings-option-copy label {
+  color: var(--color-heading);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.settings-option-copy p {
+  margin: 0.4rem 0 0;
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.settings-option input[type='checkbox'] {
+  width: 1.2rem;
+  height: 1.2rem;
+  flex: 0 0 auto;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.settings-option input[type='checkbox']:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+.settings-page-note {
+  margin: 1rem 0 0;
+  padding: 0.85rem 1rem;
+  border-radius: 0.5rem;
+  background: var(--color-background-soft);
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.settings-page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.settings-page-actions a {
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.settings-page-actions a:hover {
+  text-decoration: underline;
+}
+
+.settings-page-actions a:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+@media (max-width: 600px) {
+  .settings-page {
+    padding: 2rem 0 3rem;
+  }
+
+  .settings-card {
+    padding: 1rem;
+    border-radius: 0.75rem;
+  }
+
+  .settings-option {
+    gap: 1rem;
+  }
+
+  .settings-page-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,150 @@
+<svg
+  width="256"
+  height="256"
+  viewBox="0 0 256 256"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-labelledby="title desc"
+>
+  <title id="title">MYSHOPYCART Dark App Icon</title>
+  <desc id="desc">
+    MYSHOPYCART shopping cart and shopping bag icon for dark backgrounds
+  </desc>
+
+  <!-- Dark icon background -->
+  <rect
+    x="8"
+    y="8"
+    width="240"
+    height="240"
+    rx="56"
+    fill="#172033"
+  />
+
+  <!-- Subtle blue highlight -->
+  <circle
+    cx="194"
+    cy="60"
+    r="44"
+    fill="#0B2A55"
+  />
+
+  <!-- Motion lines -->
+  <rect
+    x="30"
+    y="105"
+    width="48"
+    height="10"
+    rx="5"
+    fill="#28B463"
+  />
+
+  <rect
+    x="38"
+    y="123"
+    width="40"
+    height="10"
+    rx="5"
+    fill="#28B463"
+  />
+
+  <rect
+    x="46"
+    y="141"
+    width="32"
+    height="10"
+    rx="5"
+    fill="#28B463"
+  />
+
+  <!-- Shopping cart -->
+  <path
+    d="M69 72
+       C69 66 74 61 80 61
+       H194
+       C202 61 207 68 205 75
+       L190 136
+       C188 144 181 150 173 150
+       H97
+       C89 150 82 144 80 137
+       L69 72Z"
+    fill="#1769E0"
+  />
+
+  <!-- Cart inner area -->
+  <path
+    d="M84 78
+       H189
+       L177 133
+       H98
+       L84 78Z"
+    fill="#0B1F3A"
+  />
+
+  <!-- Shopping bag handle -->
+  <path
+    d="M104 65
+       V53
+       C104 35 116 23 132 23
+       C148 23 160 35 160 53
+       V65"
+    stroke="#28B463"
+    stroke-width="12"
+    stroke-linecap="round"
+  />
+
+  <!-- Shopping bag -->
+  <path
+    d="M93 63
+       C93 58 97 54 102 54
+       H162
+       C167 54 171 58 171 63
+       L165 101
+       C164 108 158 113 151 113
+       H113
+       C106 113 100 108 99 101
+       L93 63Z"
+    fill="#28B463"
+  />
+
+  <!-- Bag highlight -->
+  <path
+    d="M115 72
+       C115 81 121 87 132 87
+       C143 87 149 81 149 72"
+    stroke="#FFFFFF"
+    stroke-width="6"
+    stroke-linecap="round"
+  />
+
+  <!-- Cart wheels -->
+  <circle
+    cx="105"
+    cy="181"
+    r="20"
+    fill="#1769E0"
+  />
+
+  <circle
+    cx="170"
+    cy="181"
+    r="20"
+    fill="#1769E0"
+  />
+
+  <!-- Wheel highlights -->
+  <circle
+    cx="105"
+    cy="181"
+    r="7"
+    fill="#DCEBFF"
+  />
+
+  <circle
+    cx="170"
+    cy="181"
+    r="7"
+    fill="#DCEBFF"
+  />
+</svg>

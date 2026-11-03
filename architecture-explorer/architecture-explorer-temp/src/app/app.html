@@ -1,0 +1,1110 @@
+
+<div class="explorer">
+  <header class="topbar">
+    <a class="brand" href="#overview" aria-label="MYSHOPYCART Architecture Explorer home">
+      <span class="brand-mark">M</span>
+      <span>MYSHOPYCART <small>ARCHITECTURE EXPLORER</small></span>
+    </a>
+<nav aria-label="Main navigation">
+  <a href="#overview"
+     [class.active]="activeSection() === 'overview'"
+     (click)="activeSection.set('overview')">Overview</a>
+  <a href="#architecture"
+     [class.active]="activeSection() === 'architecture'"
+     (click)="activeSection.set('architecture')">Architecture</a>
+  <a href="#services"
+     [class.active]="activeSection() === 'services'"
+     (click)="activeSection.set('services')">Services</a>
+  <a href="#patterns"
+     [class.active]="activeSection() === 'patterns'"
+     (click)="activeSection.set('patterns')">Patterns</a>
+  <a href="#security"
+     [class.active]="activeSection() === 'security'"
+     (click)="activeSection.set('security')">Security</a>
+  <a href="#engineering"
+     [class.active]="activeSection() === 'engineering'"
+     (click)="activeSection.set('engineering')">Engineering</a>
+  <a href="#technology-stack"
+     [class.active]="activeSection() === 'technology-stack'"
+     (click)="activeSection.set('technology-stack')">Tech Stack</a>
+  <a href="#development-environment"
+     [class.active]="activeSection() === 'development-environment'"
+     (click)="activeSection.set('development-environment')">Environment</a>
+</nav>
+
+    <span class="public-label">PUBLIC PROJECT TOUR</span>
+  </header>
+
+  <main id="overview">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">FULL-STACK E-COMMERCE · MICROSERVICES</span>
+
+        <h1>Explore the architecture behind <span>MYSHOPYCART.</span></h1>
+
+        <p>
+          Discover the MYSHOPYCART e-commerce platform, built with a React
+          storefront and a Java Spring Boot microservices backend. This
+          separate Angular application presents the architecture, technology
+          stack, security design and engineering workflow.
+        </p>
+
+        <div class="hero-actions">
+          <a class="primary-action" href="#architecture">
+            Explore architecture <span>↗</span>
+          </a>
+          <a class="secondary-action" href="#angular-use-case">
+            Angular use case
+          </a>
+        </div>
+
+        <div class="hero-note">
+          <span class="status-dot"></span>
+          Architecture overview · Implementation status is verified separately
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-label="Simplified architecture overview">
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+
+        <div class="core-node">
+          <span class="core-symbol">M</span>
+          <strong>MYSHOPYCART</strong>
+          <small>ECOMMERCE PLATFORM</small>
+        </div>
+
+        <div class="floating-node node-web"><span>01</span> React UI</div>
+        <div class="floating-node node-api"><span>02</span> API Gateway</div>
+        <div class="floating-node node-services"><span>03</span> Microservices</div>
+        <div class="floating-node node-data"><span>04</span> Data layer</div>
+      </div>
+    </section>
+
+    <!-- PLATFORM SUMMARY -->
+    <section class="stats" aria-label="Platform overview">
+      <article class="stat-card">
+        <span class="stat-label">STOREFRONT</span>
+        <strong>React</strong>
+        <small>Customer shopping and application workflows</small>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-label">BACKEND</span>
+        <strong>Java 21</strong>
+        <small>Spring Boot microservices</small>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-label">ARCHITECTURE TOUR</span>
+        <strong>Angular</strong>
+        <small>Separate Architecture Explorer application</small>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-label">COMMUNICATION</span>
+        <strong>REST APIs</strong>
+        <small>Gateway-based application access</small>
+      </article>
+    </section>
+
+
+    <!-- ARCHITECTURE -->
+    <section class="section" id="architecture">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">01 / SYSTEM DESIGN</span>
+          <h2>Architecture at a glance</h2>
+        </div>
+
+        <p>
+          Explore the MYSHOPYCART microservices architecture.
+          Select any service to view its responsibilities,
+          database, APIs and supporting technologies.
+        </p>
+      </div>
+
+      <div class="architecture-map">
+        <div class="architecture-layer">
+          <span class="layer-number">01</span>
+          <div class="layer-content">
+            <span class="layer-kicker">STOREFRONT PRESENTATION</span>
+            <strong>React frontend</strong>
+            <p>Customer shopping, authentication and application workflows.</p>
+          </div>
+          <span class="layer-tag">React · Vite</span>
+        </div>
+
+        <div class="flow-connector">
+          <span>HTTPS / REST</span><i>↓</i>
+        </div>
+
+        <button type="button"
+          class="architecture-layer gateway-layer infra-node"
+          [class.selected]="selectedInfrastructure() === 'gateway'"
+          [attr.aria-pressed]="selectedInfrastructure() === 'gateway'"
+          (click)="selectInfrastructure('gateway')">
+    <span class="layer-number">02</span>
+    <div class="layer-content">
+      <span class="layer-kicker">APPLICATION EDGE · PORT 8080</span>
+      <strong>API Gateway</strong>
+      <p>Central entry point with configured routes to backend services.</p>
+    </div>
+  <span class="layer-tag">Spring Cloud Gateway · Click to explore</span>
+</button>
+
+        <div class="flow-connector">
+          <span>ROUTED REQUESTS · SELECT A SERVICE BELOW</span><i>↓</i>
+        </div>
+
+        <div class="service-map">
+          <button type="button" class="service-node"
+                  [class.selected]="selectedService() === 'auth'"
+                  [attr.aria-pressed]="selectedService() === 'auth'"
+                  (click)="selectService('auth')">
+            <span>AUTH · 8081</span>
+            <strong>Auth Service</strong>
+            <small>Identity and JWT</small>
+          </button>
+
+          <button type="button" class="service-node"
+                  [class.selected]="selectedService() === 'product'"
+                  [attr.aria-pressed]="selectedService() === 'product'"
+                  (click)="selectService('product')">
+            <span>CATALOG · 8082</span>
+            <strong>Product Service</strong>
+            <small>MongoDB · Redis</small>
+          </button>
+
+          <button type="button" class="service-node"
+                  [class.selected]="selectedService() === 'cart'"
+                  [attr.aria-pressed]="selectedService() === 'cart'"
+                  (click)="selectService('cart')">
+            <span>SHOPPING · 8084</span>
+            <strong>Cart Service</strong>
+            <small>Cart and wishlist</small>
+          </button>
+
+          <button type="button" class="service-node"
+                  [class.selected]="selectedService() === 'order'"
+                  [attr.aria-pressed]="selectedService() === 'order'"
+                  (click)="selectService('order')">
+            <span>FULFILMENT · 8085</span>
+            <strong>Order Service</strong>
+            <small>Orders and invoices</small>
+          </button>
+
+          <button type="button" class="service-node"
+                  [class.selected]="selectedService() === 'inventory'"
+                  [attr.aria-pressed]="selectedService() === 'inventory'"
+                  (click)="selectService('inventory')">
+            <span>STOCK · 8083</span>
+            <strong>Inventory Service</strong>
+            <small>Stock management</small>
+          </button>
+
+          <button type="button" class="service-node"
+                  [class.selected]="selectedService() === 'payment'"
+                  [attr.aria-pressed]="selectedService() === 'payment'"
+                  (click)="selectService('payment')">
+            <span>PAYMENTS · 8086</span>
+            <strong>Payment Service</strong>
+            <small>Payment and resilience</small>
+          </button>
+
+          <button type="button" class="service-node"
+                  [class.selected]="selectedService() === 'notification'"
+                  [attr.aria-pressed]="selectedService() === 'notification'"
+                  (click)="selectService('notification')">
+            <span>MESSAGING · 8087</span>
+            <strong>Notification Service</strong>
+            <small>Email and messaging</small>
+          </button>
+        </div>
+
+        <!-- INTERACTIVE SERVICE DETAILS -->
+        @if (selectedServiceDetails(); as details) {
+          <div class="service-detail-panel" aria-live="polite">
+            <div class="service-detail-header">
+              <div>
+                <span class="layer-kicker">SELECTED MICROSERVICE</span>
+                <h3>{{ details.name }}</h3>
+                <span class="tech-chip">Port {{ details.port }}</span>
+              </div>
+
+              <button type="button"
+                      class="detail-close"
+                      aria-label="Close service details"
+                      (click)="closeServiceDetails()">
+                ×
+              </button>
+            </div>
+
+            <p>{{ details.description }}</p>
+
+            <div class="service-detail-grid">
+              <div>
+                <span class="detail-label">DATABASE</span>
+                <strong>{{ details.database }}</strong>
+              </div>
+
+              <div>
+                <span class="detail-label">TECHNOLOGIES</span>
+                <strong>{{ details.technologies }}</strong>
+              </div>
+
+              <div>
+                <span class="detail-label">API BASE PATH</span>
+                <strong>{{ details.api }}</strong>
+              </div>
+
+              <div>
+                <span class="detail-label">INTEGRATIONS</span>
+                <strong>{{ details.integrations }}</strong>
+              </div>
+            </div>
+
+            <p class="diagram-note">
+              Service details are based on inspected project source
+              and configuration. API base paths are shown for reference;
+              individual endpoints are implemented within each controller.
+            </p>
+          </div>
+        }
+
+        <div class="flow-connector">
+          <span>CONFIGURATION & SERVICE DISCOVERY</span><i>↓</i>
+        </div>
+
+        <div class="platform-services">
+  <button type="button"
+          [class.selected]="selectedInfrastructure() === 'config'"
+          [attr.aria-pressed]="selectedInfrastructure() === 'config'"
+          (click)="selectInfrastructure('config')">
+    <strong>Config Server</strong>
+    <small>Port 8888 · Externalized configuration</small>
+  </button>
+
+  <button type="button"
+          [class.selected]="selectedInfrastructure() === 'eureka'"
+          [attr.aria-pressed]="selectedInfrastructure() === 'eureka'"
+          (click)="selectInfrastructure('eureka')">
+    <strong>Eureka Discovery</strong>
+    <small>Port 8761 · Service registry</small>
+  </button>
+</div>
+
+  <div class="infrastructure-explorer">
+  <div class="infrastructure-heading">
+    <span class="layer-kicker">SUPPORTING INFRASTRUCTURE</span>
+    <p>Select a component to explore its role.</p>
+  </div>
+
+  <div class="infrastructure-grid">
+    <button type="button"
+            [class.selected]="selectedInfrastructure() === 'kafka'"
+            [attr.aria-pressed]="selectedInfrastructure() === 'kafka'"
+            (click)="selectInfrastructure('kafka')">
+      <strong>Apache Kafka</strong>
+      <small>Port 9092 · Event messaging</small>
+    </button>
+
+    <button type="button"
+            [class.selected]="selectedInfrastructure() === 'redis'"
+            [attr.aria-pressed]="selectedInfrastructure() === 'redis'"
+            (click)="selectInfrastructure('redis')">
+      <strong>Redis</strong>
+      <small>Port 6379 · Product caching</small>
+    </button>
+
+    <button type="button"
+            [class.selected]="selectedInfrastructure() === 'rabbitmq'"
+            [attr.aria-pressed]="selectedInfrastructure() === 'rabbitmq'"
+            (click)="selectInfrastructure('rabbitmq')">
+      <strong>RabbitMQ</strong>
+      <small>Port 5672 · Messaging</small>
+    </button>
+
+    <button type="button"
+            [class.selected]="selectedInfrastructure() === 'minio'"
+            [attr.aria-pressed]="selectedInfrastructure() === 'minio'"
+            (click)="selectInfrastructure('minio')">
+      <strong>MinIO</strong>
+      <small>Port 9100 · Object storage</small>
+    </button>
+  </div>
+</div>
+
+@if (selectedInfrastructureDetails(); as details) {
+  <div class="service-detail-panel infrastructure-detail-panel"
+       aria-live="polite">
+    <div class="service-detail-header">
+      <div>
+        <span class="layer-kicker">SELECTED INFRASTRUCTURE</span>
+        <h3>{{ details.name }}</h3>
+        <span class="tech-chip">Port {{ details.port }}</span>
+      </div>
+
+      <button type="button"
+              class="detail-close"
+              aria-label="Close infrastructure details"
+              (click)="closeInfrastructureDetails()">
+        ×
+      </button>
+    </div>
+
+    <p>{{ details.description }}</p>
+
+    <div class="service-detail-grid">
+      <div>
+        <span class="detail-label">PURPOSE</span>
+        <strong>{{ details.purpose }}</strong>
+      </div>
+
+      <div>
+        <span class="detail-label">CONFIGURED USAGE</span>
+        <strong>{{ details.usage }}</strong>
+      </div>
+    </div>
+
+    <p class="diagram-note">
+      Details reflect the inspected project configuration and code.
+      They do not indicate that the infrastructure component is
+      currently running.
+    </p>
+  </div>
+}
+        <p class="diagram-note">
+          Logical architecture overview. Configured ports and integrations
+          do not imply that every service is currently running or that
+          all connections have passed end-to-end testing.
+        </p>
+      </div>
+    </section>
+
+    <!-- ANGULAR USE CASE -->
+    <section class="section" id="angular-use-case">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">02 / ANGULAR PROJECT EXPERIENCE</span>
+          <h2>Angular Architecture Explorer</h2>
+        </div>
+
+        <p>
+          Angular is used specifically to build this separate architecture
+          visualization and technical presentation application.
+          React remains the main e-commerce storefront.
+        </p>
+      </div>
+
+      <div class="service-cards">
+        <article class="detail-card">
+          <span class="card-index">01</span>
+          <h3>Architecture visualization</h3>
+          <p>
+            Presents the logical system architecture, API Gateway,
+            microservices and supporting infrastructure in a readable format.
+          </p>
+          <span class="tech-chip">Angular · TypeScript</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">02</span>
+          <h3>Technical showcase</h3>
+          <p>
+            Explains the technologies, databases, messaging systems,
+            development software and AI-assisted engineering workflow.
+          </p>
+          <span class="tech-chip">Technology presentation</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">03</span>
+          <h3>Responsive interface</h3>
+          <p>
+            Provides a browser-based architecture tour with sections
+            for system design, security, engineering and the technology stack.
+          </p>
+          <span class="tech-chip">Responsive web UI</span>
+        </article>
+      </div>
+
+      <p class="diagram-note">
+        Scope clarification: Angular powers the Architecture Explorer
+        presented on this page. It is not being represented as the framework
+        used to build the React e-commerce storefront.
+      </p>
+    </section>
+
+    <!-- DEVELOPMENT ENVIRONMENT -->
+    <section class="section" id="development-environment">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">08 / DEVELOPMENT ENVIRONMENT</span>
+          <h2>Development environment &amp; infrastructure tools</h2>
+        </div>
+
+        <p>
+          The operating system and supporting tools used to develop,
+          run and manage the MYSHOPYCART project locally.
+        </p>
+      </div>
+
+      <div class="service-cards">
+        <article class="detail-card">
+          <span class="card-index">01</span>
+          <h3>Windows 11</h3>
+          <p>
+            Primary operating system for project development,
+            source-code management and local application workflows.
+          </p>
+          <span class="tech-chip">Operating system</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">02</span>
+          <h3>Docker Desktop</h3>
+          <p>
+            Manages containers and supporting infrastructure used
+            for local application development and testing.
+          </p>
+          <span class="tech-chip">Container platform</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">03</span>
+          <h3>WSL 2</h3>
+          <p>
+            Provides Windows Subsystem for Linux integration,
+            supporting Linux-based development and container workflows.
+          </p>
+          <span class="tech-chip">Linux integration</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">04</span>
+          <h3>Ubuntu</h3>
+          <p>
+            Linux distribution available through WSL 2 for
+            Linux command-line tools and development tasks.
+          </p>
+          <span class="tech-chip">Linux distribution</span>
+        </article>
+      </div>
+
+      <p class="diagram-note">
+        These tools describe the local development environment.
+        They do not imply that the production application is deployed
+        on Windows, WSL 2 or Ubuntu.
+      </p>
+    </section>
+
+    <!-- SERVICE CATALOG -->
+    <section class="section" id="services">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">03 / SERVICE CATALOG</span>
+          <h2>Designed around business domains</h2>
+        </div>
+
+        <p>
+          Each service has a distinct responsibility. Availability and
+          integration status must be verified independently.
+        </p>
+      </div>
+
+      <div class="service-cards">
+        <article class="detail-card">
+          <span class="card-index">01</span>
+          <h3>Authentication</h3>
+          <p>Registration, login, identity and token-related responsibilities.</p>
+          <span class="tech-chip">JWT · Spring Security</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">02</span>
+          <h3>Product catalog</h3>
+          <p>Product browsing and catalog information exposed to the frontend.</p>
+          <span class="tech-chip">REST API</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">03</span>
+          <h3>Cart and inventory</h3>
+          <p>Shopping-cart operations and inventory-domain responsibilities.</p>
+          <span class="tech-chip">Domain services</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">04</span>
+          <h3>Orders and invoices</h3>
+          <p>Order history, order details, ownership handling and invoice-related work.</p>
+          <span class="tech-chip">Order workflow</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">05</span>
+          <h3>Payment</h3>
+          <p>Payment-related workflows and payment-result handling.</p>
+          <span class="tech-chip">Payment domain</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">06</span>
+          <h3>Notifications</h3>
+          <p>Notification responsibilities within the broader application.</p>
+          <span class="tech-chip">Messaging integration</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- DESIGN PATTERNS -->
+    <section class="section" id="patterns">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">DESIGN / ARCHITECTURE PATTERNS</span>
+          <h2>Patterns behind the implementation</h2>
+        </div>
+
+        <p>
+          Key architectural and engineering patterns used in MYSHOPYCART
+          to organize services, handle failures, manage data and maintain
+          reliable API behavior.
+        </p>
+      </div>
+
+      <div class="service-cards">
+        <article class="detail-card">
+          <span class="card-index">01</span>
+          <h3>Microservices Architecture</h3>
+          <p>
+            API Gateway for centralized routing, Eureka for service discovery
+            and Spring Cloud Config for centralized configuration.
+            Database per Service and Polyglot Persistence use PostgreSQL
+            and MongoDB. Messaging supports event-driven integration.
+          </p>
+          <span class="tech-chip">Gateway · Eureka · Config · Messaging</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">02</span>
+          <h3>Resilience Patterns</h3>
+          <p>
+            Circuit Breaker protects payment workflows from repeated failures.
+            Retry handles configured transient failures, while TimeLimiter
+            enforces a payment gateway timeout.
+          </p>
+          <span class="tech-chip">Resilience4j · Retry · TimeLimiter</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">03</span>
+          <h3>Distributed Caching</h3>
+          <p>
+            Redis caching in Product Service reduces repeated data retrieval.
+            Cache eviction keeps cached product information aligned with
+            relevant update and delete operations.
+          </p>
+          <span class="tech-chip">Redis · Cacheable · CacheEvict</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">04</span>
+          <h3>Idempotency</h3>
+          <p>
+            Payment idempotency-key validation helps prevent duplicate
+            processing when the same payment request is submitted again.
+          </p>
+          <span class="tech-chip">Payment · Idempotency Key</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">05</span>
+          <h3>Global Exception Handling</h3>
+          <p>
+            Centralized REST exception handling with @RestControllerAdvice,
+            custom business exceptions, request validation and handling
+            of payment-related failures.
+          </p>
+          <span class="tech-chip">Spring · ExceptionHandler · Validation</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">06</span>
+          <h3>Service Mesh</h3>
+          <p>
+            Service Mesh is a possible future enhancement for service-to-service
+            traffic management, observability and security. It is not currently
+            configured as part of MYSHOPYCART.
+          </p>
+          <span class="status-pill status-planned">Future enhancement</span>
+        </article>
+      </div>
+
+      <p class="diagram-note">
+        These patterns describe the implementation areas identified in the
+        project. Saga, CQRS and Service Mesh are not presented as implemented
+        features.
+      </p>
+    </section>
+
+    <!-- SECURITY -->
+    <section class="section" id="security">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">04 / TRUST BOUNDARIES</span>
+          <h2>Security by design</h2>
+        </div>
+
+        <p>
+          The public explorer is separate from customer functionality and
+          must never expose credentials or private data.
+        </p>
+      </div>
+
+      <div class="security-grid">
+        <article class="security-card">
+          <span class="security-icon">01</span>
+          <h3>Authentication</h3>
+          <p>
+            Documented Auth Service and JWT-related security components
+            support the identity flow.
+          </p>
+        </article>
+
+        <article class="security-card">
+          <span class="security-icon">02</span>
+          <h3>Authorization</h3>
+          <p>
+            Protected shopping and role-based workflows require
+            appropriate backend permission checks.
+          </p>
+        </article>
+
+        <article class="security-card">
+          <span class="security-icon">03</span>
+          <h3>Service boundaries</h3>
+          <p>
+            Gateway routing, service configuration and ownership
+            checks form part of the security architecture.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ENGINEERING -->
+    <section class="section" id="engineering">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">05 / DELIVERY & QUALITY</span>
+          <h2>Build, test and deployment</h2>
+        </div>
+
+        <p>
+          Engineering claims will be updated only when supported by
+          test results or deployment evidence.
+        </p>
+      </div>
+
+      <div class="engineering-list">
+        <article>
+          <span class="engineering-number">A</span>
+          <div>
+            <h3>Automated testing</h3>
+            <p>
+              Unit, frontend and integration testing are tracked in the
+              project phases. Some Phase 19 checks remain to be verified.
+            </p>
+          </div>
+          <span class="status-pill status-review">Verification pending</span>
+        </article>
+
+        <article>
+          <span class="engineering-number">B</span>
+          <div>
+            <h3>Docker and CI</h3>
+            <p>
+              Containerization and CI configuration are documented;
+              a successful complete pipeline must be independently confirmed.
+            </p>
+          </div>
+          <span class="status-pill status-review">Verification pending</span>
+        </article>
+
+        <article>
+          <span class="engineering-number">C</span>
+          <div>
+            <h3>Cloud deployment</h3>
+            <p>
+              Cloud and Kubernetes work belongs to the separate
+              revised Phase 20 roadmap.
+            </p>
+          </div>
+          <span class="status-pill status-planned">Planned separately</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- TECHNOLOGY STACK -->
+    <section class="section" id="technology-stack">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">06 / TECHNOLOGY LANDSCAPE</span>
+          <h2>Technology stack</h2>
+        </div>
+
+        <p>
+          Languages, frameworks, data technologies and infrastructure
+          associated with MYSHOPYCART. Exact versions and integration
+          status should be verified against project configuration.
+        </p>
+      </div>
+
+      <div class="service-cards">
+        <article class="detail-card">
+          <span class="card-index">01</span>
+          <h3>Java and backend</h3>
+          <p>
+            Java 21, Spring Boot, Spring Framework, Spring Security,
+            Spring Data JPA, Hibernate and REST APIs.
+          </p>
+          <span class="tech-chip">Backend development</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">02</span>
+          <h3>Microservices infrastructure</h3>
+          <p>
+            Spring Cloud Gateway, Eureka Discovery and Spring Cloud
+            Config Server for gateway routing, service discovery
+            and centralized configuration.
+          </p>
+          <span class="tech-chip">Distributed architecture</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">03</span>
+          <h3>React storefront</h3>
+          <p>
+            React, JavaScript, HTML, CSS and Vite for the main
+            e-commerce storefront and customer-facing workflows.
+          </p>
+          <span class="tech-chip">Storefront development</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">04</span>
+          <h3>Angular Architecture Explorer</h3>
+          <p>
+            Angular and TypeScript for the separate architecture
+            visualization application. Its purpose is technical
+            presentation, not storefront rendering.
+          </p>
+          <span class="tech-chip">Angular · TypeScript</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">05</span>
+          <h3>PostgreSQL</h3>
+          <p>
+            Relational database technology for structured data
+            and transactional persistence where configured.
+          </p>
+          <span class="tech-chip">SQL database</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">06</span>
+          <h3>MongoDB</h3>
+          <p>
+            Document-oriented database technology. The project's
+            product database configuration should be verified
+            against the active service implementation.
+          </p>
+          <span class="tech-chip">NoSQL database</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">07</span>
+          <h3>Redis</h3>
+          <p>
+            In-memory data store for caching and fast data access
+            where implemented.
+          </p>
+          <span class="tech-chip">Caching</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">08</span>
+          <h3>Apache Kafka</h3>
+          <p>
+            Event streaming and asynchronous communication
+            where configured and integrated.
+          </p>
+          <span class="tech-chip">Event streaming</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">09</span>
+          <h3>RabbitMQ</h3>
+          <p>
+            Message queuing and asynchronous processing
+            where configured and integrated.
+          </p>
+          <span class="tech-chip">Message broker</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">10</span>
+          <h3>MinIO object storage</h3>
+          <p>
+            S3-compatible object storage for local or self-hosted
+            development where integrated. AWS deployment is a
+            separate Phase 20 activity.
+          </p>
+          <span class="tech-chip">Object storage</span>
+        </article>
+      </div>
+
+      <p class="diagram-note">
+        Technology inclusion does not by itself confirm a completed
+        integration. Runtime use, service ownership and end-to-end
+        behavior must be checked before claiming production readiness.
+      </p>
+    </section>
+
+    <!-- DEVELOPMENT TOOLS -->
+    <section class="section" id="development-tools">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">07 / DEVELOPER WORKFLOW</span>
+          <h2>Development software and tools</h2>
+        </div>
+
+        <p>
+          Software used during development, debugging, API testing,
+          builds and local infrastructure management.
+        </p>
+      </div>
+
+      <div class="service-cards">
+        <article class="detail-card">
+          <span class="card-index">01</span>
+          <h3>Eclipse IDE</h3>
+          <p>
+            IDE experience for Java coding, project navigation,
+            debugging and application development.
+          </p>
+          <span class="tech-chip">Java IDE</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">02</span>
+          <h3>Visual Studio Code</h3>
+          <p>
+            Code editing, frontend development, configuration
+            files and project maintenance.
+          </p>
+          <span class="tech-chip">Code editor</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">03</span>
+          <h3>Docker Desktop</h3>
+          <p>
+            Local container management and development infrastructure.
+          </p>
+          <span class="tech-chip">Containers</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">04</span>
+          <h3>Postman</h3>
+          <p>
+            Sending API requests and inspecting responses while
+            testing REST endpoints.
+          </p>
+          <span class="tech-chip">API testing</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">05</span>
+          <h3>Apache Maven</h3>
+          <p>
+            Java dependency management, project builds and execution
+            of configured tests.
+          </p>
+          <span class="tech-chip">Build automation</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">06</span>
+          <h3>Git</h3>
+          <p>
+            Source control and change history management throughout
+            the software development lifecycle.
+          </p>
+          <span class="tech-chip">Version control</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">07</span>
+          <h3>Node.js and npm</h3>
+          <p>
+            JavaScript runtime and package management for frontend
+            development tools and scripts.
+          </p>
+          <span class="tech-chip">Frontend tooling</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">08</span>
+          <h3>Vite and Vitest</h3>
+          <p>
+            Frontend development builds and JavaScript application tests.
+          </p>
+          <span class="tech-chip">Build and test tools</span>
+        </article>
+      </div>
+
+      <p class="diagram-note">
+        Development tools describe the engineering workflow; they
+        are not application runtime components.
+      </p>
+    </section>
+
+    <!-- AI-ASSISTED DEVELOPMENT -->
+    <section class="section" id="ai-assisted-development">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">08 / AI-ASSISTED ENGINEERING</span>
+          <h2>AI-powered development workflow</h2>
+        </div>
+
+        <p>
+          AI tools support technical research, code analysis and
+          problem-solving while engineering decisions and verification
+          remain part of the developer's work.
+        </p>
+      </div>
+
+      <div class="service-cards">
+        <article class="detail-card">
+          <span class="card-index">01</span>
+          <h3>ChatGPT</h3>
+          <p>
+            Secondary technical reference for explanations,
+            debugging approaches, architecture discussions,
+            implementation planning and code-review ideas.
+          </p>
+          <span class="tech-chip">AI development assistant</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">02</span>
+          <h3>Claude AI</h3>
+          <p>
+            Development assistance for code analysis, understanding
+            implementations, exploring solutions and problem-solving.
+          </p>
+          <span class="tech-chip">AI development assistant</span>
+        </article>
+
+        <article class="detail-card">
+          <span class="card-index">03</span>
+          <h3>AI-assisted Java engineering</h3>
+          <p>
+            AI assistance to explore Java and Spring Boot solutions,
+            understand errors, consider refactoring options and
+            develop test-case ideas.
+          </p>
+          <span class="tech-chip">Java · Spring Boot</span>
+        </article>
+      </div>
+
+      <p class="diagram-note">
+        AI-generated suggestions are reference material, not proof
+        of correctness. Code must be reviewed against project
+        requirements and validated through builds and tests.
+      </p>
+    </section>
+
+    <!-- ENGINEERING PRACTICE -->
+    <section class="section" id="engineering-profile">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">09 / ENGINEERING PRACTICE</span>
+          <h2>From implementation to verification</h2>
+        </div>
+
+        <p>
+          Demonstrate practical development knowledge and explain
+          the reasons behind technical decisions.
+        </p>
+      </div>
+
+      <div class="security-grid">
+        <article class="security-card">
+          <span class="security-icon">01</span>
+          <h3>Design and implement</h3>
+          <p>
+            Understand business requirements, select appropriate
+            technologies and implement frontend and backend features.
+          </p>
+        </article>
+
+        <article class="security-card">
+          <span class="security-icon">02</span>
+          <h3>Test and troubleshoot</h3>
+          <p>
+            Inspect application behavior, test APIs, review logs,
+            resolve defects and verify changes with suitable tests.
+          </p>
+        </article>
+
+        <article class="security-card">
+          <span class="security-icon">03</span>
+          <h3>Review and validate</h3>
+          <p>
+            Review AI-assisted suggestions and configuration changes.
+            Validate behavior instead of assuming a proposed solution works.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- CLOSING -->
+    <section class="closing">
+      <span class="eyebrow">ENGINEERING TRANSPARENCY</span>
+
+      <h2>Understand the design.<br /><span>Trace the flow.</span></h2>
+
+      <p>
+        This explorer is a technical overview, not a live service-health
+        dashboard. Implementation and deployment status will be marked
+        as verified only when evidence is available.
+      </p>
+
+      <a class="primary-action" href="#overview">Back to overview ↑</a>
+    </section>
+  </main>
+
+  <!-- COPYRIGHT -->
+  <footer class="footer">
+    <a class="brand footer-brand" href="#overview">
+      <span class="brand-mark">M</span>
+      <span>MYSHOPYCART <small>ARCHITECTURE EXPLORER</small></span>
+    </a>
+
+    <div class="footer-legal">
+      <span>Independent public architecture showcase · Angular</span>
+      <span>© 2026 Sumukha S. All rights reserved.</span>
+      <small>
+        MYSHOPYCART is an independently developed software project.
+        Third-party frameworks, libraries and tools remain the property
+        of their respective owners.
+      </small>
+    </div>
+  </footer>
+</div>

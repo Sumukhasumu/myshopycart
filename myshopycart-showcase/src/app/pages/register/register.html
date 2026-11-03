@@ -1,0 +1,112 @@
+
+<section class="register-page">
+  <div class="register-card">
+
+    <div class="register-header">
+      <span class="register-brand">MYSHOPYCART</span>
+      <h1>Create your account</h1>
+      <p>Register to start shopping and manage your orders.</p>
+    </div>
+
+    @if (errorMessage()) {
+      <div class="register-error" role="alert">
+        {{ errorMessage() }}
+      </div>
+    }
+
+    <form (ngSubmit)="register()" novalidate>
+
+      <div class="register-form-group">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          name="username"
+          [(ngModel)]="username"
+          placeholder="Choose a username"
+          autocomplete="username"
+          required
+        />
+        @if (fieldErrors()['username']) {
+          <span class="field-error">{{ fieldErrors()['username'] }}</span>
+        }
+      </div>
+
+      <div class="register-form-group">
+        <label for="email">Email address</label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="Enter your email"
+          autocomplete="email"
+          required
+        />
+        @if (fieldErrors()['email']) {
+          <span class="field-error">{{ fieldErrors()['email'] }}</span>
+        }
+      </div>
+
+      <div class="register-form-group">
+        <label for="mobileNumber">
+          Mobile number <span class="optional-label">(Optional)</span>
+        </label>
+        <input
+          id="mobileNumber"
+          type="tel"
+          name="mobileNumber"
+          [(ngModel)]="mobileNumber"
+          placeholder="Enter your mobile number"
+          autocomplete="tel"
+        />
+        @if (fieldErrors()['mobileNumber']) {
+          <span class="field-error">{{ fieldErrors()['mobileNumber'] }}</span>
+        }
+      </div>
+
+      <div class="register-form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Create a password"
+          autocomplete="new-password"
+          required
+        />
+        @if (fieldErrors()['password']) {
+          <span class="field-error">{{ fieldErrors()['password'] }}</span>
+        }
+      </div>
+
+      <div class="register-form-group">
+        <label for="confirmPassword">Confirm password</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          name="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          placeholder="Re-enter your password"
+          autocomplete="new-password"
+          required
+        />
+        @if (fieldErrors()['confirmPassword']) {
+          <span class="field-error">{{ fieldErrors()['confirmPassword'] }}</span>
+        }
+      </div>
+
+      <button type="submit" [disabled]="isSubmitting()">
+        {{ isSubmitting() ? 'Creating account...' : 'Create account' }}
+      </button>
+
+    </form>
+
+    <p class="register-login-link">
+      Already have an account?
+      <a routerLink="/login">Sign in</a>
+    </p>
+
+  </div>
+</section>

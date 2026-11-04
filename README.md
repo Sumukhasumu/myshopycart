@@ -77,7 +77,6 @@ myshopycart/
 |   |-- api/
 |   |-- database/
 |   |-- adr/
-|   `-- interview-notes/
 |-- .github/
 |   `-- workflows/
 |-- README.md
